@@ -1,6 +1,6 @@
-TripJournal
+# TripJournal
 
-A trip tracker and visualizer.
+### A trip tracker and visualizer.
 
 This app will allow users to capture aspects of their journey such as specific locations or the
 geographic path (driving, flying, hiking) and pin pictures they have taken during the trip, so that
@@ -11,3 +11,11 @@ card format, containing pinned pictures, maps, tweets, and foursquare check­ins
 be shared with friends and social media and allow people to experience or reminisce the trip in
 a fresh way. Users can also take pictures of their invoices and receipts and use them to
 generate an expense report which would be useful for corporate trips.
+
+
+## To Start
+```
+npm install
+gulp
+```
+use `gulp watch` while working to auto compile css and include javascript files
