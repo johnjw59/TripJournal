@@ -4,3 +4,9 @@
 node_modules/
 platforms/
 plugins/
+www/css
+node_modules/
+temp/
+*.DS_Store
+*.log
+*.swp
