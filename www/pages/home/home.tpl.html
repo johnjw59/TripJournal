@@ -8,12 +8,12 @@
 </ion-header-bar>
 
 <ion-content>
-  {{test}}
+  <img ng-src="{{img}}" />
 </ion-content>
 
 <ion-footer-bar class="bar-positive">
   <div class="button-bar">
-    <button class="icon ion-camera button button-clear"></button>
+    <button class="icon ion-camera button button-clear" ng-click="takePicture()"></button>
     <button class="icon ion-social-twitter button button-clear"></button>
     <button class="icon ion-social-foursquare button button-clear"></button>
     <button class="icon ion-edit button button-clear"></button>
