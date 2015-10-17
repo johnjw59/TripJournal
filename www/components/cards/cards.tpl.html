@@ -1,0 +1,18 @@
+<div class="list card" ng-repeat="card in cards" ng-switch="card.type">
+
+  <div ng-switch-when="image" class="item item-image">
+    <img ng-src="{{card.img_url}}" />
+  </div>
+
+  <div ng-switch-when="note" class="item item-text-wrap">
+    {{card.text}}
+  </div>
+
+  <div class="item card-info">
+    <div class="row">
+      <div class="col">{{card.location}}</div>
+      <div class="col">{{card.date}}</div>
+    </div>
+  </div>
+
+</div>
