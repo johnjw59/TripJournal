@@ -1,15 +1,11 @@
-<ion-header-bar class="bar-positive">
-  <div class="button-bar">
-    <button class="icon ion-android-list button button-clear"></button>
-    <button class="icon ion-map button button-clear"></button>
-    <button class="icon ion-cash button button-clear"></button>
-  </div>
-  <button class="icon ion-navicon button"></button>
-</ion-header-bar>
-
-<ion-content>
-  {{test}}
-</ion-content>
+<ion-view title="Home">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-content class="has-header">
+    {{test}}
+  </ion-content>
+</ion-view>
 
 <ion-footer-bar class="bar-positive">
   <div class="button-bar">

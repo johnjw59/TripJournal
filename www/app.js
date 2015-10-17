@@ -15,11 +15,21 @@ angular.module('app', ['ionic', 'page.home'])
 
 // Route to different page templates
 .config(function($stateProvider, $urlRouterProvider) {
+  $stateProvider
+    .state('app', {
+      url: "/app",
+      abstract: true,
+      templateUrl: "pages/home/menu.tpl.html",
+      controller: 'MenuCtrl'
+    })
+  .state('app.home', {
+      url: "/home",
+      views: {
+        'menuContent' :{
+          templateUrl: "pages/home/home.tpl.html",
+          controller: 'HomeCtrl'
+        }
+      }
+    })
   $urlRouterProvider.otherwise('/');
-
-  $stateProvider.state('home', {
-    url: '/',
-    templateUrl: 'pages/home/home.tpl.html',
-    controller: 'HomeCtrl'
-  });
 });
