@@ -1,4 +1,4 @@
-angular.module('app', ['ionic', 'page.home'])
+angular.module('app', ['ionic', 'ngCordova', 'page.home'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

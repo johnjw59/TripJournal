@@ -7,9 +7,12 @@
   <button class="icon ion-navicon button"></button>
 </ion-header-bar>
 
-<ion-content>
-  {{test}}
-</ion-content>
+<ion-pane>
+  <ion-content ng-controller="OAuthCtrl" class="has-header" padding="true">
+    <div>{{test}}</div>
+    <div><button class="button button-block button-balanced" ng-click="googleLogin()">Google Login</button></div>
+  </ion-content>
+</ion-pane>
 
 <ion-footer-bar class="bar-positive">
   <div class="button-bar">
