@@ -27,6 +27,11 @@ angular.module('tripCards', [])
         // img would usually contain the google drive url and already have time and location
         $scope.cards.unshift(data);
       });
+
+      $scope.$on('noteMade', function(event, data) {
+        console.log(data);
+        $scope.cards.unshift(data);
+      });
     }
   };
 });

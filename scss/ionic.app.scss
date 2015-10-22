@@ -36,3 +36,11 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     text-align: right;
   }
 }
+
+#make-note {
+  height: 100%;
+  width: 100%;
+}
+.button.button-full.note-submit {
+  margin: 0px;
+}
