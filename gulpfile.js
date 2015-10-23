@@ -16,6 +16,9 @@ var paths = {
     '!./www/lib/**'
   ]
 };
+var bower_packages = [
+  'ngCordova'
+];
 
 gulp.task('default', ['sass', 'javascript']);
 
@@ -46,7 +49,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('install', ['git-check'], function() {
-  return bower.commands.install()
+  return bower.commands.install(bower_packages, {save: true}, {})
     .on('log', function(data) {
       gutil.log('bower', gutil.colors.cyan(data.id), data.message);
     });
