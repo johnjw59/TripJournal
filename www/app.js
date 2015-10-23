@@ -13,6 +13,11 @@ angular.module('app', ['ionic', 'ngCordova', 'page.home', 'page.setting'])
   });
 })
 
+// Force tabs bar to bottom in Android (iOS default is already bottom)
+.config(function($ionicConfigProvider) {
+  $ionicConfigProvider.tabs.position('bottom');
+})
+
 // Route to different page templates
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
@@ -21,7 +26,6 @@ angular.module('app', ['ionic', 'ngCordova', 'page.home', 'page.setting'])
       templateUrl: 'pages/home/home.tpl.html',
       controller: 'HomeCtrl'
     })
-
     .state('setting', {
       url: '/setting',
       templateUrl: 'pages/setting/setting.tpl.html',
