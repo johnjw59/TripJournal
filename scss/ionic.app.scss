@@ -21,3 +21,18 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+.card-info {
+  font-size: 0.87em;
+  padding: 2px 16px;
+
+  .row, .col {
+    padding: 0;
+  }
+
+  .col {
+    text-align: left;
+  }
+  .col + .col {
+    text-align: right;
+  }
+}
