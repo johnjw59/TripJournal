@@ -1,14 +1,23 @@
-angular.module('page.home', [])
-  .controller('HomeCtrl', function($scope) {
-    $scope.test = "Hello, world!";
-  })
+angular.module('page.home', ['tripCards'])
+  .controller('HomeCtrl', function($scope, $q, $rootScope) {
+    
+    $scope.takePicture = function() {
+      var defer = $q.defer();
+      defer.promise.then(function(img) {
+        var obj = {
+          type: 'image',
+          img_url: img,
+          date: new Date(),
+          location: 'here'
+        };
+        $rootScope.$broadcast('pictureTaken', obj);
+      });
 
-  .controller("OAuthCtrl", function($scope, $cordovaOauth) {
-      $scope.googleLogin = function() {
-          $cordovaOauth.google("1011840488483-5svsjfnrr9von30eu147lp74qrvbef4p.apps.googleusercontent.com", ["https://www.googleapis.com/auth/urlshortener", "https://www.googleapis.com/auth/userinfo.email"]).then(function(result) {
-              console.log(JSON.stringify(result));
-          }, function(error) {
-              console.log(error);
-          });
-      }
+      navigator.camera.getPicture(defer.resolve, defer.reject, {
+        quality: 75,
+        encodingType: Camera.EncodingType.JPEG,
+        correctOrientation: true,
+        saveToPhotoAlbum: false
+      });
+    };
   });

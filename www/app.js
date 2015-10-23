@@ -1,4 +1,4 @@
-angular.module('app', ['ionic', 'ngCordova', 'page.home'])
+angular.module('app', ['ionic', 'ngCordova', 'page.home', 'page.setting'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -15,11 +15,17 @@ angular.module('app', ['ionic', 'ngCordova', 'page.home'])
 
 // Route to different page templates
 .config(function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/');
+  $stateProvider
+    .state('home', {
+      url: '/',
+      templateUrl: 'pages/home/home.tpl.html',
+      controller: 'HomeCtrl'
+    })
 
-  $stateProvider.state('home', {
-    url: '/',
-    templateUrl: 'pages/home/home.tpl.html',
-    controller: 'HomeCtrl'
-  });
+    .state('setting', {
+      url: '/setting',
+      templateUrl: 'pages/setting/setting.tpl.html',
+      controller: 'SettingCtrl'
+    })
+  $urlRouterProvider.otherwise('/');
 });

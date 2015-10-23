@@ -7,19 +7,14 @@
   <button class="icon ion-navicon button"></button>
 </ion-header-bar>
 
-<ion-pane>
-  <ion-content ng-controller="OAuthCtrl" class="has-header" padding="true">
-    <div>{{test}}</div>
-    <div><button class="button button-block button-balanced" ng-click="googleLogin()">Google Login</button></div>
-  </ion-content>
-</ion-pane>
+<ion-content>
+  <trip-card></trip-card>
+</ion-content>
 
-<ion-footer-bar class="bar-positive">
-  <div class="button-bar">
-    <button class="icon ion-camera button button-clear"></button>
-    <button class="icon ion-social-twitter button button-clear"></button>
-    <button class="icon ion-social-foursquare button button-clear"></button>
-    <button class="icon ion-edit button button-clear"></button>
-    <button class="icon ion-gear-a button button-clear"></button>
-  </div>
-</ion-footer-bar>
+<ion-tabs class="tabs-positive tabs-icon-only">
+  <ion-tab icon-on="ion-ios-camera" icon-off="ion-ios-camera-outline" ng-click="takePicture()"></ion-tab>
+  <ion-tab icon-on="ion-social-twitter" icon-off="ion-social-twitter-outline" ></ion-tab>
+  <ion-tab icon-on="ion-ios-location" icon-off="ion-ios-location-outline" ></ion-tab>
+  <ion-tab icon-on="ion-ios-compose" icon-off="ion-ios-compose-outline" ></ion-tab>
+  <ion-tab icon-on="ion-ios-gear" icon-off="ion-ios-gear-outline" href="#/setting"></ion-tab>
+</ion-tabs>
