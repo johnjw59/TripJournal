@@ -1,21 +1,24 @@
-<ion-nav-bar class="bar-positive">
-  <ion-nav-view>
-    <ion-nav-bar-content side="center">
-    </ion-nav-bar-content>
-      <ion-nav-buttons side="center">
-        <button class="button">Map</button>
-        <button class="button">Card</button>
-      </ion-nav-buttons>
-      <ion-content class="has-header">
-        <trip-card></trip-card>
-      </ion-content>
-  </ion-nav-view>
-</ion-nav-bar>
+<ion-view>
+  <ion-nav-title>
+    <ion-tabs class="tabs-background-positive tabs-color-light">
+      <!-- when this tab is clicked, it should hide the map container, and show the trip-card tag -->
+      <ion-tab title="Cards" icon-on="ion-ios-albums" icon-off="ion-ios-albums-outline" class="tab-color-light"></ion-tab>
+      <!-- when this tab is clicked, it should hide the trip-card tag, and show the map tag -->
+      <ion-tab title="Map" icon-on="ion-ios-navigate" icon-off="ion-ios-navigate-outline" class="tab-color-light"></ion-tab>
+    </ion-tabs>
+  </ion-nav-title>
+  
+  <ion-content class="has-header">
+    <trip-card></trip-card>
+  </ion-content>
 
-<ion-tabs class="tabs-positive tabs-icon-only">
-      <ion-tab icon-on="ion-ios-camera" icon-off="ion-ios-camera-outline" ng-click="takePicture()"></ion-tab>
-      <ion-tab icon-on="ion-social-twitter" icon-off="ion-social-twitter-outline" ></ion-tab>
-      <ion-tab icon-on="ion-ios-location" icon-off="ion-ios-location-outline" ></ion-tab>
-      <ion-tab icon-on="ion-ios-compose" icon-off="ion-ios-compose-outline" ng-click="makeNote()"></ion-tab>
-      <ion-tab icon-on="ion-ios-gear" icon-off="ion-ios-gear-outline" href="#/setting"></ion-tab>
-</ion-tabs>
+  <ion-footer-bar class="bar-positive">
+    <div class="button-bar">
+      <button class="icon ion-camera button button-clear" ng-click="takePicture()"></button>
+      <button class="icon ion-social-twitter button button-clear"></button>
+      <button class="icon ion-location button button-clear"></button>
+      <button class="icon ion-compose button button-clear" ng-click="makeNote()"></button>
+      <button class="icon ion-gear-a button button-clear" ng-click="$state.go('setting')"></button>
+    </div>
+  </ion-footer-bar>
+</ion-view>

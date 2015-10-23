@@ -1,5 +1,6 @@
 angular.module('page.home', ['tripCards', 'ionic'])
-.controller('HomeCtrl', function($scope, $q, $rootScope, $ionicModal) {
+.controller('HomeCtrl', function($scope, $q, $state, $rootScope, $ionicNavBarDelegate, $ionicModal) {
+  $scope.$state = $state;
   
   $scope.takePicture = function() {
     var defer = $q.defer();

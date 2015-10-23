@@ -21,6 +21,10 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+.tabs .tab-color-light {
+  color: $light !important;
+}
+
 .card-info {
   font-size: 0.87em;
   padding: 2px 16px;

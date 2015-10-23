@@ -30,6 +30,6 @@ angular.module('app', ['ionic', 'ngCordova', 'page.home', 'page.setting'])
       url: '/setting',
       templateUrl: 'pages/setting/setting.tpl.html',
       controller: 'SettingCtrl'
-    })
+    });
   $urlRouterProvider.otherwise('/');
 });
