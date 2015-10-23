@@ -1,22 +1,21 @@
-<ion-header-bar class="bar-positive">
-  <div class="button-bar">
-    <button class="icon ion-android-list button button-clear"></button>
-    <button class="icon ion-map button button-clear"></button>
-    <button class="icon ion-cash button button-clear"></button>
-  </div>
-  <button class="icon ion-navicon button"></button>
-</ion-header-bar>
+<ion-nav-bar class="bar-positive">
+  <ion-nav-view>
+    <ion-nav-bar-content side="center">
+    </ion-nav-bar-content>
+      <ion-nav-buttons side="center">
+        <button class="button">Map</button>
+        <button class="button">Card</button>
+      </ion-nav-buttons>
+      <ion-content class="has-header">
+        <trip-card></trip-card>
+      </ion-content>
+  </ion-nav-view>
+</ion-nav-bar>
 
-<ion-content>
-  <trip-card></trip-card>
-</ion-content>
-
-<ion-footer-bar class="bar-positive">
-  <div class="button-bar">
-    <button class="icon ion-camera button button-clear" ng-click="takePicture()"></button>
-    <button class="icon ion-social-twitter button button-clear"></button>
-    <button class="icon ion-social-foursquare button button-clear"></button>
-    <button class="icon ion-edit button button-clear" ng-click="makeNote()"></button>
-    <button class="icon ion-gear-a button button-clear"></button>
-  </div>
-</ion-footer-bar>
+<ion-tabs class="tabs-positive tabs-icon-only">
+      <ion-tab icon-on="ion-ios-camera" icon-off="ion-ios-camera-outline" ng-click="takePicture()"></ion-tab>
+      <ion-tab icon-on="ion-social-twitter" icon-off="ion-social-twitter-outline" ></ion-tab>
+      <ion-tab icon-on="ion-ios-location" icon-off="ion-ios-location-outline" ></ion-tab>
+      <ion-tab icon-on="ion-ios-compose" icon-off="ion-ios-compose-outline" ng-click="makeNote()"></ion-tab>
+      <ion-tab icon-on="ion-ios-gear" icon-off="ion-ios-gear-outline" href="#/setting"></ion-tab>
+</ion-tabs>

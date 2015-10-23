@@ -11,3 +11,5 @@ resources/
 *.DS_Store
 *.log
 *.swp
+.io-config.json
+ionic.project
