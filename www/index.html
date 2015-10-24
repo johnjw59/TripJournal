@@ -9,16 +9,20 @@
     <script src="//www.parsecdn.com/js/parse-1.6.7.min.js"></script>
     <script src="lib/sha.js"></script>
     <script src="cordova.js"></script>
-    <script src="app.js"></script>
+    <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
+    <script src="lib/parse/parse.min.js"></script>
     <!-- inject:js -->
     <script src="app.js"></script>
-    <script src="ng-cordova.min.js"></script>
     <script src="components/cards/cards.js"></script>
+    <script src="pages/login/login.js"></script>
     <script src="pages/home/home.js"></script>
     <script src="pages/setting/setting.js"></script>
     <!-- endinject -->
   </head>
   <body ng-app="app">
+    <ion-nav-bar class="bar-positive">
+      <ion-nav-back-button></ion-nav-back-button>
+    </ion-nav-bar>
     <ion-nav-view></ion-nav-view>
   </body>
 </html>

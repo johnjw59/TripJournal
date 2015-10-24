@@ -1,9 +1,17 @@
 angular.module('page.home', ['tripCards', 'ionic'])
-.controller('HomeCtrl', function($scope, $q, $rootScope, $ionicModal) {
+.controller('HomeCtrl', function($scope, $q, $state, $rootScope, $cordovaCamera, $ionicModal) {
+  $scope.$state = $state;
   
   $scope.takePicture = function() {
-    var defer = $q.defer();
-    defer.promise.then(function(img) {
+    var options = {
+      quality: 75,
+      encodingType: Camera.EncodingType.JPEG,
+      correctOrientation: true,
+      saveToPhotoAlbum: false
+    };
+
+    $cordovaCamera.getPicture(options)
+    .then(function(img) {
       var obj = {
         type: 'image',
         img_url: img,
@@ -11,17 +19,13 @@ angular.module('page.home', ['tripCards', 'ionic'])
         location: 'here'
       };
       $rootScope.$broadcast('pictureTaken', obj);
-    });
-
-    navigator.camera.getPicture(defer.resolve, defer.reject, {
-      quality: 75,
-      encodingType: Camera.EncodingType.JPEG,
-      correctOrientation: true,
-      saveToPhotoAlbum: false
+    }, function(err) {
+      console.error(err);
     });
   };
 
 
+  // Note taking Modal
   $ionicModal.fromTemplateUrl('pages/home/make-note.tpl.html', {
     scope: $scope,
     animation: 'slide-in-up'

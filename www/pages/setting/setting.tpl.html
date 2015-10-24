@@ -1,19 +1,16 @@
-<ion-nav-bar class="bar-positive">
-  <ion-nav-view>
-    <ion-nav-buttons side="right">
-      <a class="button" href="#/">Back</a>
-    </ion-nav-buttons>
-    <ion-content ng-controller="SettingCtrl" class="has-header" padding="true">
-      <div class="list">
-        <div class="item item-button-right">
-          Google Authentication
-          <button class="button button-balanced" ng-click="authenticateUser()">Login</button>
-        </div>
-        <div class="item item-button-right">
-          Twitter Authentication
-          <button class="button button-balanced" ng-click="authenticateTwitter()">Login</button>
-        </div>
+<ion-view>
+  <ion-nav-title>Settings</ion-nav-title>
+
+  <ion-content ng-controller="SettingCtrl" class="has-header" padding="true">
+    <div class="list">
+      <div class="item item-button-right">
+        Google Authentication
+        <button class="button button-balanced" ng-click="authenticateUser()">Login</button>
       </div>
-    </ion-content>
-  </ion-nav-view>
-</ion-nav-bar>
+    </div>
+    <div class="item item-button-right">
+      Twitter Authentication
+      <button class="button button-balanced" ng-click="authenticateTwitter()">Login</button>
+    </div>
+  </ion-content>
+</ion-view>

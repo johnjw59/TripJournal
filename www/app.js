@@ -1,4 +1,4 @@
-angular.module('app', ['ionic', 'ngCordova', 'page.home', 'page.setting'])
+angular.module('app', ['ionic', 'ngCordova', 'page.login', 'page.home', 'page.setting'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -10,6 +10,7 @@ angular.module('app', ['ionic', 'ngCordova', 'page.home', 'page.setting'])
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
+    Parse.initialize("MY4KyWo5RUK2yX6GIFEambS54Mv8X4EXm7PIoSBs","qFqeFSzjVHxEpOKYWKjuOHYs42PhkzWWwVSEhaqE");
   });
 })
 
@@ -21,15 +22,28 @@ angular.module('app', ['ionic', 'ngCordova', 'page.home', 'page.setting'])
 // Route to different page templates
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
-    .state('home', {
-      url: '/',
-      templateUrl: 'pages/home/home.tpl.html',
-      controller: 'HomeCtrl'
-    })
-    .state('setting', {
-      url: '/setting',
-      templateUrl: 'pages/setting/setting.tpl.html',
-      controller: 'SettingCtrl'
-    })
-  $urlRouterProvider.otherwise('/');
+  .state('login', {
+    url: '/login',
+    templateUrl: 'pages/login/login.tpl.html',
+    controller: 'LoginCtrl'
+  })
+  .state('home', {
+    url: '/home',
+    templateUrl: 'pages/home/home.tpl.html',
+    controller: 'HomeCtrl'
+  })
+  .state('setting', {
+    url: '/setting',
+    templateUrl: 'pages/setting/setting.tpl.html',
+    controller: 'SettingCtrl'
+  });
+  /*
+    if (no authentication token) {
+      $urlRouterProvider.other('/login');
+    } else {
+      $urlRouterProvider.otherwise('/home');
+    }
+  */ 
+  $urlRouterProvider.otherwise('/home');
+  
 });

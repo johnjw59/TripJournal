@@ -16,6 +16,7 @@ generate an expense report which would be useful for corporate trips.
 ## To Start
 ```
 npm install
+gulp install
 gulp
 ```
 use `gulp watch` while working to auto compile css and include javascript files
