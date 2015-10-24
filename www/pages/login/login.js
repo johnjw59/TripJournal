@@ -6,9 +6,9 @@ angular.module('page.login', [])
         console.log(JSON.stringify(result));
         // save result in local storage
         // if this is a new user, save it to parse (maybe do it anyway and let parse figure out what happens the user already exists?)
+        $state.go('home');
     }, function(err) {
-        console.error(err);
+        window.alert(err);
     });
-    $state.go('home');
   };
 });

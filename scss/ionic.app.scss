@@ -21,6 +21,14 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+.row.row-center.vertical-center {
+  height: 100%;
+}
+
+.center-text {
+  text-align: center;
+}
+
 .tabs .tab-color-light {
   color: $light !important;
 }
