@@ -57,4 +57,10 @@ angular.module('page.home', ['tripCards', 'ionic'])
     $scope.modal.remove();
   });
 
+
+  // Twitter inAppBrowser
+  $scope.openTwitter = function() {
+    var ref = window.open(encodeURI('http://twitter.com'), '_blank', 'location=yes');
+  };
+
 });
