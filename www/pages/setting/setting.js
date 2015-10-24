@@ -3,9 +3,11 @@ angular.module('page.setting', [])
   $scope.authenticateUser = function() {
     $cordovaOauth.google("1011840488483-5svsjfnrr9von30eu147lp74qrvbef4p.apps.googleusercontent.com", ["https://www.googleapis.com/auth/urlshortener", "https://www.googleapis.com/auth/userinfo.email"])
     .then(function(result) {
-        console.log(JSON.stringify(result));
+      console.log(result);
+      window.localStorage.setItem('google_access_token', result.access_token);
     }, function(error) {
-        console.log(error);
+      window.alert(error);
+      console.log(error);
     });
   };
 });
