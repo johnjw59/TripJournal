@@ -10,6 +10,7 @@ angular.module('app', ['ionic', 'ngCordova', 'page.login', 'page.home', 'page.se
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
+    Parse.initialize("MY4KyWo5RUK2yX6GIFEambS54Mv8X4EXm7PIoSBs","qFqeFSzjVHxEpOKYWKjuOHYs42PhkzWWwVSEhaqE");
   });
 })
 
