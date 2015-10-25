@@ -1,4 +1,8 @@
-angular.module('page.home', ['tripCards', 'ionic'])
+angular.module('page.home', [
+  'tripCards',
+  'mapview', 
+  'ionic'
+])
 .controller('HomeCtrl', function($scope, $q, $state, $rootScope, $cordovaCamera, $ionicModal) {
   $scope.$state = $state;
   
