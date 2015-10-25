@@ -3,31 +3,32 @@ angular.module('page.home', ['tripCards', 'ionic'])
   $scope.$state = $state;
   
   $scope.takePicture = function() {
-    var options = {
-      quality: 75,
-      encodingType: Camera.EncodingType.JPEG,
-      correctOrientation: true,
-      saveToPhotoAlbum: false
-    };
+    //to test popup after login, uncomment below line
+    //window.localStorage.removeItem('google_access_token');
+    //temp get token from local storage
+    var access_token = window.localStorage.getItem('google_access_token');
+    if (access_token === null) {
+      {
+        console.info('hi2');
+        $ionicPopup.alert({
+          title: 'Authentication Required',
+          template: 'Click OK to Login'
+        }).then(function(res) {
+          if (res) {
+            $state.go('setting');
+          }
+        });
+      };
+    } else {
+      var options = {
+        quality: 75,
+        encodingType: Camera.EncodingType.JPEG,
+        correctOrientation: true,
+        saveToPhotoAlbum: false
+      };
 
-    $cordovaCamera.getPicture(options)
-    .then(function(img) {
-      //to test popup after login, uncomment below line (it's not working right now)
-      //window.localStorage.removeItem('google_access_token');
-      //temp get token from local storage
-      var access_token = window.localStorage.getItem('google_access_token');
-      if (access_token === null) {
-        $scope.showAlert = function() {
-          $ionicPopup.alert({
-            title: 'Authentication Required',
-            template: 'Please login to Google in Settings'
-          }).then(function(res) {
-            if (res) {
-              $state.go('setting');
-            }
-          });
-        };
-      } else {
+      $cordovaCamera.getPicture(options)
+      .then(function(img) {
         //TODO - upload img to Drive, broadcast drive url
         var obj = {
           type: 'image',
@@ -36,12 +37,11 @@ angular.module('page.home', ['tripCards', 'ionic'])
           location: 'here'
         };
         $rootScope.$broadcast('pictureTaken', obj);
-      }
-    }, function(err) {
-      console.error(err);
-    });
-  };
-
+      }, function(err) {
+        console.error(err);
+      });
+    };
+  }
 
   // Note taking Modal
   $ionicModal.fromTemplateUrl('pages/home/make-note.tpl.html', {
