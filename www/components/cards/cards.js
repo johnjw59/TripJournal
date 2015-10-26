@@ -31,7 +31,19 @@ angular.module('tripCards', [])
       $scope.$on('noteMade', function(event, data) {
         console.log(data);
         $scope.cards.unshift(data);
+        $scope.saveCard(data);
       });
+
+      $scope.saveCard = function(data, type) {
+        var Card = Parse.Object.extend("Card");
+        var card = new Card();
+        card.set("tripId",1); // hard coded for now
+        card.set("cardType", data.type);
+        // card.set("location", data.location);
+        card.set("location", new Parse.GeoPoint({latitude: 40.0, longitude: -30.0}));
+        card.set("data", data.text);
+        card.save(null,{});
+      }
     }
   };
 });
