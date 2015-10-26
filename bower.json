@@ -5,6 +5,9 @@
     "ionic": "driftyco/ionic-bower#1.1.0"
   },
   "dependencies": {
-    "ngCordova": "~0.1.20-alpha"
+    "ngCordova": "~0.1.20-alpha",
+    "parse": "~1.6.7",
+    "jsSHA": "jssha#~1.6.1",
+    "angular-resource": "~1.4.7"
   }
 }

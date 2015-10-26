@@ -32,6 +32,11 @@ angular.module('tripCards', [])
         console.log(data);
         $scope.cards.unshift(data);
       });
+
+      $scope.$on('tweetPosted', function(event, data) {
+        console.log(data);
+        $scope.cards.unshift(data);
+      });
     }
   };
 });
