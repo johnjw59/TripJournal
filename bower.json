@@ -8,6 +8,7 @@
     "ngCordova": "~0.1.20-alpha",
     "parse": "~1.6.7",
     "jsSHA": "jssha#~1.6.1",
-    "angular-resource": "~1.4.7"
+    "angular-resource": "~1.4.7",
+    "ng-twitter-api": "~0.1.5"
   }
 }

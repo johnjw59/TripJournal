@@ -1,4 +1,4 @@
-angular.module('app', ['ionic', 'ngCordova', 'ngResource', 'page.login', 'page.home', 'page.setting', 'TwitterService'])
+angular.module('app', ['ionic', 'ngCordova', 'ngTwitter', 'ngResource', 'page.login', 'page.home', 'page.setting', 'TwitterService'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

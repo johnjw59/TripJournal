@@ -76,20 +76,19 @@ angular.module('page.home', ['tripCards', 'ionic'])
     .then(function() {
       document.getElementById('tweet').focus();
     });
-    // var ref = window.open(encodeURI('http://twitter.com'), '_blank', 'location=yes');
   };
   $scope.postTweet = function() {
-    $scope.home_timeline = TwitterService.getHomeTimeline();
-    console.log($scope.home_timeline);
-    var obj = {
-      type: 'tweet',
-      text: $scope.twitter.tweet,
-      date: new Date(),
-      location: 'there'
-    };
-    var postTweet = TwitterService.postTweet();
-    console.log(postTweet);
-    $rootScope.$broadcast('tweetPosted', obj);
+    var postTweet = TwitterService.postTweet($scope.twitter.tweet, function(res) {
+      console.log(res);
+      var obj = {
+        type: 'tweet',
+        text: res.text,
+        date: res.created_at,
+        location: 'there',
+        id: res.id
+      };
+      $rootScope.$broadcast('tweetPosted', obj);
+    });
 
     $scope.closeTwitterModal();
   };
@@ -104,10 +103,6 @@ angular.module('page.home', ['tripCards', 'ionic'])
   $scope.showHomeTimeline = function() {
     $scope.home_timeline = TwitterService.getHomeTimeline();
     console.log($scope.home_timeline);
-  };
-  $scope.doRefresh = function() {
-    $scope.showHomeTimeline();
-    $scope.$broadcast('scroll.refreshComplete');
   };
   $ionicPlatform.ready(function() {
     console.log('ready');

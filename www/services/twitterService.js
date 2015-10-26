@@ -1,5 +1,5 @@
 angular.module('TwitterService', [])
-.factory('TwitterService', function($cordovaOauth, $cordovaOauthUtility, $http, $resource, $q) {
+.factory('TwitterService', function($cordovaOauth, $cordovaOauthUtility, $http, $resource, $q, $twitterApi) {
   var twitterKey = "twitter_user_tokens";
   var clientId = 'MrNcTUs3R9avp1eR0P2krSqtF';
   var clientSecret = 'UXofLYtuz1oJVZc6vLkAtFjhY0fbR7pMZvGXgUK7wWtKyzbgF5';
@@ -39,6 +39,7 @@ angular.module('TwitterService', [])
         console.log('1');
         $cordovaOauth.twitter(clientId, clientSecret).then(function(result) {
           console.log(result);
+          $twitterApi.configure(clientId, clientSecret, result);
           storeUserToken(result);
           deferred.resolve(true);
         }, function(error) {
@@ -57,10 +58,11 @@ angular.module('TwitterService', [])
       createTwitterSignature('GET', home_tl_url);
       return $resource(home_tl_url).query();
     },
-    postTweet: function() {
-      var post_url = 'https://api.twitter.com/1.1/statuses/update.json';
-      createTwitterSignature('POST', post_url);
-      return $resource(post_url).save();
+    postTweet: function(message, callback) {
+      $twitterApi.postStatusUpdate(message).then(function(result) {
+        console.log(result);
+        callback(result);
+      });
     },
     storeUserToken: storeUserToken,
     getStoredToken: getStoredToken,
