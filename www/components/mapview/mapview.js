@@ -5,6 +5,11 @@ angular.module('mapview', ['ngMap'])
     templateUrl: 'components/mapview/mapview.tpl.html',
     link: function($scope, $rootScope) {
       console.log(GeolocationService);
+      $scope.userIcon = {
+        scaledSize: [26, 26],
+        anchor: [13, 13],
+        url: 'img/user-loc.svg'
+      };
       $scope.center = {
         lat: GeolocationService.lat,
         lng: GeolocationService.lon
