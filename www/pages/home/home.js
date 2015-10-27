@@ -5,11 +5,6 @@ angular.module('page.home', [
   'ngCordova',
   'ionic'
 ])
-.config(function(ngGPlacesAPIProvider){
-  ngGPlacesAPIProvider.setDefaults({
-    radius:1
-  });
-})
 .controller('HomeCtrl', function($scope, $q, $state, $rootScope, $cordovaCamera, $ionicModal, ngGPlacesAPI, GeolocationService) {
   $scope.$state = $state;
   $scope.tab = 'cards';   
@@ -60,7 +55,7 @@ angular.module('page.home', [
       type: 'note',
       text: $scope.modal.note,
       date: new Date(),
-      location: 'here'
+      location: GeolocationService.places[0].name
     };
     $rootScope.$broadcast('noteMade', obj);
 

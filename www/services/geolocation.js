@@ -1,11 +1,15 @@
-var app = angular.module('service.geolocation', []);
-
-app.service("GeolocationService", function ($q, $cordovaGeolocation, $ionicPopup) {
+angular.module('service.geolocation', ['ngGPlaces'])
+.config(function(ngGPlacesAPIProvider){
+  ngGPlacesAPIProvider.setDefaults({
+    radius:100
+  });
+})
+.service("GeolocationService", function ($cordovaGeolocation, $ionicPopup, ngGPlacesAPI) {
 	var self = {
 		'lat': 0,
 		'lon': 0,
+		'places': null,
 		'fetch': function () {
-			// var deferred = $q.defer();
 
 			ionic.Platform.ready(function () {
 				$cordovaGeolocation
@@ -13,7 +17,15 @@ app.service("GeolocationService", function ($q, $cordovaGeolocation, $ionicPopup
 					.then(function (position) {
 						self.lat = position.coords.latitude;
 						self.lon = position.coords.longitude;
-						// deferred.resolve();
+
+						ngGPlacesAPI.nearbySearch({latitude:position.coords.latitude, longitude:position.coords.longitude})
+						.then(function(data){
+							console.log(data);
+        			self.places = data;
+      			}, function (err) {
+      				console.log(err);
+      			});
+						
 					}, function (err) {
 						console.error("Error getting position");
 						console.error(err);
@@ -23,8 +35,6 @@ app.service("GeolocationService", function ($q, $cordovaGeolocation, $ionicPopup
 						});
 					})
 			});
-
-			// return deferred.promise;
 		}
 	};
 
