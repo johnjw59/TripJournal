@@ -32,7 +32,7 @@ angular.module('service.geolocation', ['ngGPlaces'])
 							'title': 'Please switch on geolocation',
 							'template': "It seems like you've switched off geolocation for TripJournal, please switch it on by going to you application settings."
 						});
-					})
+					});
 			});
 		}
 	};

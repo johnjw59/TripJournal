@@ -13,6 +13,7 @@ angular.module('page.home', [
     $scope.tab = ($scope.tab == 'cards') ? 'map' : 'cards';
   };
   
+  // Camera
   $scope.takePicture = function() {
     var options = {
       quality: 75,
@@ -20,14 +21,13 @@ angular.module('page.home', [
       correctOrientation: true,
       saveToPhotoAlbum: false
     };
-
     $cordovaCamera.getPicture(options)
     .then(function(img) {
       var obj = {
         type: 'image',
         img_url: img,
         date: new Date(),
-        location: 'there'
+        location: GeolocationService.places[0].name
       };
       $rootScope.$broadcast('pictureTaken', obj);
     }, function(err) {
