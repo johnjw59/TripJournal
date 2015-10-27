@@ -1,13 +1,13 @@
 angular.module('mapview', ['ngMap']) 
-.directive('mapview', function() {
+.directive('mapview', function(GeolocationService) {
   return {
     scope: {},
     templateUrl: 'components/mapview/mapview.tpl.html',
     link: function($scope, $rootScope) {
-
+      console.log(GeolocationService);
       $scope.center = {
-        lat: 43.07493,
-        lng: -89.381388
+        lat: GeolocationService.lat,
+        lng: GeolocationService.lon
       };
     }
   };

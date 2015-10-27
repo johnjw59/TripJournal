@@ -20,7 +20,6 @@ angular.module('service.geolocation', ['ngGPlaces'])
 
 						ngGPlacesAPI.nearbySearch({latitude:position.coords.latitude, longitude:position.coords.longitude})
 						.then(function(data){
-							console.log(data);
         			self.places = data;
       			}, function (err) {
       				console.log(err);
