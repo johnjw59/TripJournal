@@ -1,11 +1,18 @@
 angular.module('page.home', [
   'tripCards',
-  'mapview', 
+  'mapview',
+  'ngGPlaces', 
+  'ngCordova',
   'ionic'
 ])
-.controller('HomeCtrl', function($scope, $q, $state, $rootScope, $cordovaCamera, $ionicModal) {
+.config(function(ngGPlacesAPIProvider){
+  ngGPlacesAPIProvider.setDefaults({
+    radius:1
+  });
+})
+.controller('HomeCtrl', function($scope, $q, $state, $rootScope, $cordovaCamera, $ionicModal, ngGPlacesAPI, GeolocationService) {
   $scope.$state = $state;
-  $scope.tab = 'cards';
+  $scope.tab = 'cards';   
 
   $scope.changeView = function() {
     $scope.tab = ($scope.tab == 'cards') ? 'map' : 'cards';
@@ -25,7 +32,7 @@ angular.module('page.home', [
         type: 'image',
         img_url: img,
         date: new Date(),
-        location: 'here'
+        location: 'there'
       };
       $rootScope.$broadcast('pictureTaken', obj);
     }, function(err) {
@@ -53,7 +60,7 @@ angular.module('page.home', [
       type: 'note',
       text: $scope.modal.note,
       date: new Date(),
-      location: 'there'
+      location: 'here'
     };
     $rootScope.$broadcast('noteMade', obj);
 
