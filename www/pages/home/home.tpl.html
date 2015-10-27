@@ -1,15 +1,16 @@
 <ion-view hide-back-button="true">
   <ion-nav-title>
     <ion-tabs class="tabs-background-positive tabs-color-light">
-      <!-- when this tab is clicked, it should hide the map container, and show the trip-card tag -->
-      <ion-tab title="Cards" icon-on="ion-ios-albums" icon-off="ion-ios-albums-outline" class="tab-color-light"></ion-tab>
-      <!-- when this tab is clicked, it should hide the trip-card tag, and show the map tag -->
-      <ion-tab title="Map" icon-on="ion-ios-navigate" icon-off="ion-ios-navigate-outline" class="tab-color-light"></ion-tab>
+      <ion-tab title="Cards" icon-on="ion-ios-albums" icon-off="ion-ios-albums-outline" class="tab-color-light" on-deselect="changeView()"></ion-tab>
+      <ion-tab title="Map" icon-on="ion-ios-navigate" icon-off="ion-ios-navigate-outline" class="tab-color-light" on-deselect="changeView()"></ion-tab>
     </ion-tabs>
   </ion-nav-title>
   
-  <ion-content class="has-header">
-    <!-- <trip-card></trip-card> -->
+  <ion-content class="has-header has-footer" ng-if="tab == 'cards'">
+    <trip-card></trip-card>
+  </ion-content>
+
+  <ion-content scroll="false" class="has-header has-footer" ng-if="tab == 'map'">
     <mapview></mapview>
   </ion-content>
 

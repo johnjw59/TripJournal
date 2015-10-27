@@ -5,6 +5,11 @@ angular.module('page.home', [
 ])
 .controller('HomeCtrl', function($scope, $q, $state, $rootScope, $cordovaCamera, $ionicModal) {
   $scope.$state = $state;
+  $scope.tab = 'cards';
+
+  $scope.changeView = function() {
+    $scope.tab = ($scope.tab == 'cards') ? 'map' : 'cards';
+  };
   
   $scope.takePicture = function() {
     var options = {
