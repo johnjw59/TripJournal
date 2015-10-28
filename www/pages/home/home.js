@@ -5,10 +5,20 @@ angular.module('page.home', [
   'ngCordova',
   'ionic'
 ])
-.controller('HomeCtrl', function($scope, $q, $state, $rootScope, $cordovaCamera, $ionicModal, ngGPlacesAPI, GeolocationService) {
+.controller('HomeCtrl', function($scope, $q, $state, $rootScope, $cordovaCamera, $ionicModal, $ionicTabsDelegate, ngGPlacesAPI, GeolocationService) {
   $scope.$state = $state;
-  $scope.tab = 'cards';   
 
+  // Set default tab on view load
+  $scope.$on('$ionicView.enter', function() {
+    if ($scope.tab == 'map') {
+      $ionicTabsDelegate.select(1);
+      $scope.tab = 'map';
+    }
+    else {
+      $ionicTabsDelegate.select(0);
+      $scope.tab = 'cards';
+    }
+  });
   $scope.changeView = function() {
     $scope.tab = ($scope.tab == 'cards') ? 'map' : 'cards';
   };
