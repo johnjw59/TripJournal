@@ -1,4 +1,4 @@
-angular.module('app', ['ionic', 'ngCordova', 'service.geolocation', 'page.login', 'page.home', 'page.setting'])
+angular.module('app', ['ionic', 'ngCordova', 'service.geolocation', 'service.cards', 'page.login', 'page.home', 'page.setting'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

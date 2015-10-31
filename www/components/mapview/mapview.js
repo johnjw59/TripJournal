@@ -3,7 +3,8 @@ angular.module('mapview', ['ngMap'])
   return {
     scope: {},
     templateUrl: 'components/mapview/mapview.tpl.html',
-    link: function($scope, $rootScope) {
+    link: function($scope) {
+      console.log(GeolocationService);
 
       $scope.userIcon = {
         scaledSize: [26, 26],

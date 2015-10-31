@@ -1,5 +1,5 @@
 angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 'ionic'])
-.controller('HomeCtrl', function($scope, $q, $state, $rootScope, $cordovaCamera, $ionicModal, $ionicTabsDelegate, ngGPlacesAPI, GeolocationService) {
+.controller('HomeCtrl', function($scope, $q, $state, $cordovaCamera, $ionicModal, $ionicTabsDelegate, ngGPlacesAPI, GeolocationService) {
   $scope.$state = $state;
 
   // Set default tab on view load
@@ -40,7 +40,7 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
           loc_name: places[0].name
         };
 
-        $rootScope.$broadcast('pictureTaken', obj);
+        $scope.$emit('newCard', obj);
       });
     }, function(err) {
       console.error(err);
@@ -76,7 +76,7 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
         loc_name: places[0].name
       };
 
-      $rootScope.$broadcast('noteMade', obj);
+      $scope.$emit('newCard', obj);
       $scope.closeModal();
     });
   };
