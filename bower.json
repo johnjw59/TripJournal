@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "ngCordova": "~0.1.20-alpha",
-    "ngmap": "~1.13.14",
+    "ngmap": "~1.13.15",
     "angularjs-google-places": "~0.1.0"
   }
 }

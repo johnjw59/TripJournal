@@ -22,6 +22,7 @@
     "cordova-plugin-splashscreen",
     "cordova-plugin-camera",
     "cordova-plugin-inappbrowser",
+    "cordova-plugin-geolocation",
     "com.ionic.keyboard"
   ],
   "cordovaPlatforms": [
