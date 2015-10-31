@@ -1,3 +1,5 @@
 <map center="[{{center.lat}}, {{center.lng}}]" zoom-control="false" style="height: 100%;">
   <marker position="[{{center.lat}}, {{center.lng}}]" icon="{{userIcon}}"></marker>
+
+  <marker ng-repeat="marker in markers" position="[{{marker.loc_coords.lat}}, {{marker.loc_coords.lon}}]"></marker>
 </map>

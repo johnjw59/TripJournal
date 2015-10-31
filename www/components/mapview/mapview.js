@@ -1,5 +1,5 @@
 angular.module('mapview', ['ngMap']) 
-.directive('mapview', function(GeolocationService) {
+.directive('mapview', function(GeolocationService, $rootScope, CardsService) {
   return {
     scope: {},
     templateUrl: 'components/mapview/mapview.tpl.html',
@@ -16,6 +16,12 @@ angular.module('mapview', ['ngMap'])
         lat: GeolocationService.lat,
         lng: GeolocationService.lon
       };
+
+      $scope.markers = CardsService.cards;
+      
+      $rootScope.$on('newCard', function(event, data) {
+        $scope.markers = CardsService.cards;
+      });
     }
   };
 });
