@@ -4,7 +4,7 @@ angular.module('tripCards', [])
     scope: {
 
     },
-    templateUrl: 'components/cards/cards.tpl.html',
+    templateUrl: 'components/cardview/cardview.tpl.html',
     link: function($scope, $rootScope) {
       // This would usually have been gotten from parse
       $scope.cards = [
