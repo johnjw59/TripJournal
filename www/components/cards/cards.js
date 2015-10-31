@@ -12,13 +12,13 @@ angular.module('tripCards', [])
           type: 'image',
           img_url: 'http://cdn.history.com/sites/2/2015/04/hith-eiffel-tower-iStock_000016468972Large.jpg',
           date: 'date and time',
-          location: 'location from Google Places API'
+          loc_name: 'location from Google Places API'
         },
         {
           type: 'note',
           text: 'A note or a tweet would essentially look like this. Tweet would maybe have a word bubble around and a twitter logo or something.',
           date: 'date and time',
-          location: 'location from Google Places API'
+          loc_name: 'location from Google Places API'
         }
       ];
 

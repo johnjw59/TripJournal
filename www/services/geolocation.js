@@ -1,42 +1,60 @@
 angular.module('service.geolocation', ['ngGPlaces'])
 .config(function(ngGPlacesAPIProvider){
   ngGPlacesAPIProvider.setDefaults({
-    radius:100
+    radius: 100,
+    types: []
   });
 })
-.service("GeolocationService", function ($cordovaGeolocation, $ionicPopup, ngGPlacesAPI) {
+.service("GeolocationService", function ($cordovaGeolocation, $q, $ionicPopup, ngGPlacesAPI) {
 	var self = {
-		'lat': 0,
-		'lon': 0,
-		'places': null,
-		'fetch': function () {
+		lat: 0,
+		lon: 0,
+		loc: function() {
+      var defer = $q.defer();
 
-			ionic.Platform.ready(function () {
-				$cordovaGeolocation
-					.getCurrentPosition({timeout: 10000, enableHighAccuracy: false})
-					.then(function (position) {
-						self.lat = position.coords.latitude;
-						self.lon = position.coords.longitude;
+			$cordovaGeolocation.getCurrentPosition({timeout: 10000, enableHighAccuracy: true})
+			.then(function(pos) {
+				self.lat = pos.coords.latitude;
+				self.lon = pos.coords.longitude;
 
-						ngGPlacesAPI.nearbySearch({latitude:position.coords.latitude, longitude:position.coords.longitude})
-						.then(function(data){
-        			self.places = data;
-      			}, function (err) {
-      				console.log(err);
-      			});
-						
-					}, function (err) {
-						console.error("Error getting position");
-						console.error(err);
-						$ionicPopup.alert({
-							'title': 'Please switch on geolocation',
-							'template': "It seems like you've switched off geolocation for TripJournal, please switch it on by going to you application settings."
-						});
-					});
+        defer.resolve(pos);
+			}, function(err) {
+				console.error(err);
+				$ionicPopup.alert({
+					'title': 'Please switch on geolocation',
+					'template': "It seems like you've switched off geolocation for TripJournal, please switch it on by going to you application settings."
+				});
+
+        defer.reject(err);
 			});
-		}
+
+      return defer.promise;
+		},
+    
+    places: function() {
+      var defer = $q.defer();
+
+      self.loc().then(function(loc) {
+        ngGPlacesAPI.nearbySearch({latitude: loc.coords.latitude, longitude: loc.coords.longitude})
+        .then(function(data) {
+          data.loc = {
+            lat: loc.coords.latitude,
+            lon: loc.coords.longitude
+          };
+          defer.resolve(data);
+        }, function(err) {
+          defer.reject(err);
+        });
+      }, function(err) {
+        console.error(err);
+      });
+
+      return defer.promise;
+    },
+    watch: null,
+    unwatch: null
 	};
 
-	self.fetch();
+  self.loc();
 	return self;
 });

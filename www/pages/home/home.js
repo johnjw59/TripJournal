@@ -1,10 +1,4 @@
-angular.module('page.home', [
-  'tripCards',
-  'mapview',
-  'ngGPlaces', 
-  'ngCordova',
-  'ionic'
-])
+angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 'ionic'])
 .controller('HomeCtrl', function($scope, $q, $state, $rootScope, $cordovaCamera, $ionicModal, $ionicTabsDelegate, ngGPlacesAPI, GeolocationService) {
   $scope.$state = $state;
 
@@ -33,13 +27,21 @@ angular.module('page.home', [
     };
     $cordovaCamera.getPicture(options)
     .then(function(img) {
-      var obj = {
-        type: 'image',
-        img_url: img,
-        date: new Date(),
-        location: GeolocationService.places[0].name
-      };
-      $rootScope.$broadcast('pictureTaken', obj);
+      GeolocationService.places()
+      .then(function(places) {
+        var obj = {
+          type: 'image',
+          img_url: img,
+          date: new Date(),
+          loc_coords: {
+            lat: places.loc.lat,
+            lon: places.loc.lon
+          },
+          loc_name: places[0].name
+        };
+
+        $rootScope.$broadcast('pictureTaken', obj);
+      });
     }, function(err) {
       console.error(err);
     });
@@ -61,15 +63,22 @@ angular.module('page.home', [
     });
   };
   $scope.saveNote = function() {
-    var obj = {
-      type: 'note',
-      text: $scope.modal.note,
-      date: new Date(),
-      location: GeolocationService.places[0].name
-    };
-    $rootScope.$broadcast('noteMade', obj);
+    GeolocationService.places()
+    .then(function(places) {
+      var obj = {
+        type: 'note',
+        text: $scope.modal.note,
+        date: new Date(),
+        loc_coords: {
+          lat: places.loc.lat,
+          lon: places.loc.lon
+        },
+        loc_name: places[0].name
+      };
 
-    $scope.closeModal();
+      $rootScope.$broadcast('noteMade', obj);
+      $scope.closeModal();
+    });
   };
   $scope.closeModal = function() {
     $scope.modal.hide();
