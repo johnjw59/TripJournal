@@ -9,7 +9,19 @@
   </div>
 
   <div ng-switch-when="tweet" class="item item-text-wrap">
-    {{card.text}}
+    <div class="row">
+      <div class="col-xs-2">
+        <img ng-src="{{card.profile_img}}" class="profile-img" />
+      </div>
+      <div class="col-xs-10">
+        <div class="row">
+          <p>{{card.user}}</p>
+        </div>
+        <div class="row">
+          {{card.text}}
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="item card-info">

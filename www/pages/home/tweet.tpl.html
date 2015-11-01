@@ -4,7 +4,7 @@
     <button class="button button-clear icon-right ion-close button-positive button-dark" ng-click="closeTwitterModal()"></button>
   </ion-header-bar>
   <ion-content scroll="false">
-    <textarea id="tweet" ng-model="twitter.tweet"></textarea>
+    <textarea id="tweet" ng-model="twitter.tweet" maxlength="140"></textarea>
   </ion-content>
   <ion-footer-bar class="bar-positive">
     <button class="button button-full button-clear note-submit" ng-click="postTweet()">Post</button>

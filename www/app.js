@@ -1,6 +1,5 @@
 angular.module('app', ['ionic', 'ngCordova', 'ngTwitter', 'ngResource', 'page.login', 'page.home', 'page.setting', 'TwitterService'])
-
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, TwitterService) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -10,6 +9,7 @@ angular.module('app', ['ionic', 'ngCordova', 'ngTwitter', 'ngResource', 'page.lo
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
+    TwitterService.configure();
     Parse.initialize("MY4KyWo5RUK2yX6GIFEambS54Mv8X4EXm7PIoSBs","qFqeFSzjVHxEpOKYWKjuOHYs42PhkzWWwVSEhaqE");
   });
 })

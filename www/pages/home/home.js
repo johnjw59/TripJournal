@@ -82,6 +82,8 @@ angular.module('page.home', ['tripCards', 'ionic'])
       console.log(res);
       var obj = {
         type: 'tweet',
+        user: res.user.name,
+        profile_img: res.user.profile_image_url_https,
         text: res.text,
         date: res.created_at,
         location: 'there',
@@ -89,34 +91,11 @@ angular.module('page.home', ['tripCards', 'ionic'])
       };
       $rootScope.$broadcast('tweetPosted', obj);
     });
-
     $scope.closeTwitterModal();
   };
   $scope.closeTwitterModal = function() {
     $scope.twitter.hide();
     $scope.twitter.tweet = '';
   };
-
-  $scope.correctTimestring = function(string) {
-    return new Date(Date.parse(string));
-  };
-  $scope.showHomeTimeline = function() {
-    $scope.home_timeline = TwitterService.getHomeTimeline();
-    console.log($scope.home_timeline);
-  };
-  $ionicPlatform.ready(function() {
-    console.log('ready');
-    if (TwitterService.isAuthenticated()) {
-      $scope.showHomeTimeline();
-      console.log('isAuthenticated')
-    } else {
-      console.log('not Authenticated')
-      TwitterService.initialize().then(function(result) {
-        if(result === true) {
-          $scope.showHomeTimeline();
-        }
-      });
-    }
-  });
 
 });

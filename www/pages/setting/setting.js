@@ -16,14 +16,14 @@ angular.module('page.setting', [])
   $ionicPlatform.ready(function() {
     if (TwitterService.isAuthenticated()) {
       $scope.showLogin = false;
-      console.log('isAuthenticated');
+      console.log('is Authenticated');
     }
   });
 
   $scope.authenticateTwitter = function() {
     if (TwitterService.isAuthenticated()) {
       $scope.showLogin = false;
-      console.log('isAuthenticated')
+      console.log('is Authenticated')
     } else {
       console.log('not Authenticated')
       TwitterService.initialize().then(function(result) {
