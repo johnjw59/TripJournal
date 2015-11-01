@@ -6,16 +6,20 @@
     <title></title>
     <link href="css/ionic.app.min.css" rel="stylesheet">
     <script src="lib/ionic/js/ionic.bundle.js"></script>
-    <script src="cordova.js"></script>
+    <script src="lib/jsSHA/src/sha.js"></script>
+    <script src="lib/ng-twitter-api/dist/ng-twitter-api.min.js"></script>
+    <script src="lib/angular-resource/angular-resource.js"></script>
     <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
     <script src="lib/parse/parse.min.js"></script>
     <!-- inject:js -->
     <script src="app.js"></script>
+    <script src="services/twitterService.js"></script>
     <script src="components/cards/cards.js"></script>
-    <script src="pages/login/login.js"></script>
     <script src="pages/home/home.js"></script>
+    <script src="pages/login/login.js"></script>
     <script src="pages/setting/setting.js"></script>
     <!-- endinject -->
+    <script src="cordova.js"></script>
   </head>
   <body ng-app="app">
     <ion-nav-bar class="bar-positive">
