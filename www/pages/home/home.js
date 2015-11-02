@@ -110,7 +110,7 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
           user: res.user.name,
           profile_img: res.user.profile_image_url_https,
           text: res.text,
-          date: res.created_at,
+          date: new Date(res.created_at),
           loc_coords: {
             lat: places.loc.lat,
             lon: places.loc.lon
