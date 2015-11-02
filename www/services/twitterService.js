@@ -29,7 +29,7 @@ angular.module('TwitterService', [])
 
   return {
     initialize: function() {
-      console.log('init')
+      console.log('init');
       var deferred = $q.defer();
       var token = getStoredToken();
 

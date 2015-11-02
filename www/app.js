@@ -1,4 +1,4 @@
-angular.module('app', ['ionic', 'ngCordova', 'ngTwitter', 'ngResource', 'page.login', 'page.home', 'page.setting', 'TwitterService'])
+angular.module('app', ['ionic', 'ngCordova', 'ngTwitter', 'ngResource', 'service.geolocation', 'service.cards', 'page.login', 'page.home', 'page.setting', 'TwitterService'])
 .run(function($ionicPlatform, TwitterService) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard

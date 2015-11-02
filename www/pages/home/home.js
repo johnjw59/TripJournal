@@ -1,7 +1,23 @@
-angular.module('page.home', ['tripCards', 'ionic'])
-.controller('HomeCtrl', function($scope, $q, $state, $rootScope, $cordovaCamera, $ionicModal, $ionicPlatform, TwitterService) {
+angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 'ionic'])
+.controller('HomeCtrl', function($scope, $q, $state, $cordovaCamera, $ionicModal, $ionicTabsDelegate, $ionicPlatform, ngGPlacesAPI, GeolocationService, TwitterService) {
   $scope.$state = $state;
+
+  // Set default tab on view load
+  $scope.$on('$ionicView.enter', function() {
+    if ($scope.tab == 'map') {
+      $ionicTabsDelegate.select(1);
+      $scope.tab = 'map';
+    }
+    else {
+      $ionicTabsDelegate.select(0);
+      $scope.tab = 'cards';
+    }
+  });
+  $scope.changeView = function() {
+    $scope.tab = ($scope.tab == 'cards') ? 'map' : 'cards';
+  };
   
+  // Camera
   $scope.takePicture = function() {
     var options = {
       quality: 75,
@@ -9,16 +25,23 @@ angular.module('page.home', ['tripCards', 'ionic'])
       correctOrientation: true,
       saveToPhotoAlbum: false
     };
-
     $cordovaCamera.getPicture(options)
     .then(function(img) {
-      var obj = {
-        type: 'image',
-        img_url: img,
-        date: new Date(),
-        location: 'here'
-      };
-      $rootScope.$broadcast('pictureTaken', obj);
+      GeolocationService.places()
+      .then(function(places) {
+        var obj = {
+          type: 'image',
+          img_url: img,
+          date: new Date(),
+          loc_coords: {
+            lat: places.loc.lat,
+            lon: places.loc.lon
+          },
+          loc_name: places[0].name
+        };
+
+        $scope.$emit('newCard', obj);
+      });
     }, function(err) {
       console.error(err);
     });
@@ -40,27 +63,27 @@ angular.module('page.home', ['tripCards', 'ionic'])
     });
   };
   $scope.saveNote = function() {
-    var obj = {
-      type: 'note',
-      text: $scope.modal.note,
-      date: new Date(),
-      location: 'there'
-    };
-    $rootScope.$broadcast('noteMade', obj);
+    GeolocationService.places()
+    .then(function(places) {
+      var obj = {
+        type: 'note',
+        text: $scope.modal.note,
+        date: new Date(),
+        loc_coords: {
+          lat: places.loc.lat,
+          lon: places.loc.lon
+        },
+        loc_name: places[0].name
+      };
 
-    $scope.closeModal();
+      $scope.$emit('newCard', obj);
+      $scope.closeModal();
+    });
   };
   $scope.closeModal = function() {
     $scope.modal.hide();
     $scope.modal.note = '';
   };
-
-
-  // Cleanup modal.
-  $scope.$on('$destroy', function() {
-    $scope.modal.remove();
-    $scope.twitter.remove();
-  });
 
 
   $ionicModal.fromTemplateUrl('pages/home/tweet.tpl.html', {
@@ -78,24 +101,38 @@ angular.module('page.home', ['tripCards', 'ionic'])
     });
   };
   $scope.postTweet = function() {
-    var postTweet = TwitterService.postTweet($scope.twitter.tweet, function(res) {
+    TwitterService.postTweet($scope.twitter.tweet, function(res) {
       console.log(res);
-      var obj = {
-        type: 'tweet',
-        user: res.user.name,
-        profile_img: res.user.profile_image_url_https,
-        text: res.text,
-        date: res.created_at,
-        location: 'there',
-        id: res.id
-      };
-      $rootScope.$broadcast('tweetPosted', obj);
+      GeolocationService.places()
+      .then(function(places) {
+        var obj = {
+          type: 'tweet',
+          user: res.user.name,
+          profile_img: res.user.profile_image_url_https,
+          text: res.text,
+          date: res.created_at,
+          loc_coords: {
+            lat: places.loc.lat,
+            lon: places.loc.lon
+          },
+          loc_name: places[0].name
+        };
+        $scope.$emit('newCard', obj);
+        $scope.closeTwitterModal();
+      });
     });
-    $scope.closeTwitterModal();
+    
   };
   $scope.closeTwitterModal = function() {
     $scope.twitter.hide();
     $scope.twitter.tweet = '';
   };
+
+
+ // Cleanup modal.
+  $scope.$on('$destroy', function() {
+    $scope.modal.remove();
+    $scope.twitter.remove();
+  });
 
 });
