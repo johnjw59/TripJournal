@@ -4,22 +4,62 @@ angular.module('service.cards', [])
     cards: [
       {
         type: 'image',
-        img_url: 'img/eiffel1.jpg',
+        img_url: 'img/164.jpg',
         date: new Date(),
-        loc_name: 'Here',
+        loc_name: 'Hugh Dempster Pavilion',
         loc_coords: {
-          lat: 49.2624,
-          lon: -123.2432
+          lat: 49.2610,
+          lon: -123.2480
+        }
+      },
+      {
+        type: 'image',
+        img_url: 'img/ConstructionDemoWaste.jpg',
+        date: new Date(),
+        loc_name: 'UBC',
+        loc_coords: {
+          lat: 49.2656,
+          lon: -123.2503
         }
       },
       {
         type: 'note',
-        text: 'A note or a tweet would essentially look like this. Tweet would maybe have a word  bubble around and a twitter logo or something.',
+        text: 'Ugh, construction again. UBC: under construction since 1915...',
         date: new Date(),
-        loc_name: 'There',
+        loc_name: 'UBC',
         loc_coords: {
-          lat: 49.2613,
-          lon: -123.2432
+          lat: 49.2656,
+          lon: -123.2503
+        }
+      },
+      {
+        type: 'image',
+        img_url: 'img/UBC-nest-2.jpg',
+        date: new Date(),
+        loc_name: 'UBC Nest',
+        loc_coords: {
+          lat: 49.2673,
+          lon: -123.2504
+        }
+      },
+      {
+        type: 'image',
+        img_url: 'img/ubc.jpg',
+        date: new Date(),
+        loc_name: 'UBC',
+        loc_coords: {
+          lat: 49.2542,
+          lon: -123.2411
+        }
+      },
+      {
+        type: 'note',
+        text: 'A look around UBC campus, and a demo of TripJournal!!!',
+        date: new Date(),
+        loc_name: 'UBC',
+        loc_coords: {
+          lat: 49.2648,
+          lon: -123.2504
         }
       }
     ],
