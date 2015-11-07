@@ -17,7 +17,8 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
     $scope.tab = ($scope.tab == 'cards') ? 'map' : 'cards';
   };
   
-  // Camera
+
+  // Camera taking functionality
   $scope.takePicture = function() {
     var options = {
       quality: 75,
@@ -48,16 +49,16 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
   };
 
 
-  // Note taking Modal
+  // Note taking modal
   $ionicModal.fromTemplateUrl('pages/home/make-note.tpl.html', {
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function(modal) {
-    $scope.modal = modal;
-    $scope.modal.note = '';
+    $scope.noteModal = modal;
+    $scope.noteModal.note = '';
   });
   $scope.makeNote = function() {
-    $scope.modal.show()
+    $scope.noteModal.show()
     .then(function() {
       document.getElementById('make-note').focus();
     });
@@ -67,7 +68,7 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
     .then(function(places) {
       var obj = {
         type: 'note',
-        text: $scope.modal.note,
+        text: $scope.noteModal.note,
         date: new Date(),
         loc_coords: {
           lat: places.loc.lat,
@@ -80,28 +81,24 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
       $scope.closeModal();
     });
   };
-  $scope.closeModal = function() {
-    $scope.modal.hide();
-    $scope.modal.note = '';
-  };
 
 
+  // Tweet making modal
   $ionicModal.fromTemplateUrl('pages/home/tweet.tpl.html', {
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function(modal) {
-    $scope.twitter = modal;
-    $scope.twitter.tweet = '';
+    $scope.twitterModal = modal;
+    $scope.twitterModal.tweet = '';
   });
-
   $scope.openTwitter = function() {
-    $scope.twitter.show()
+    $scope.twitterModal.show()
     .then(function() {
       document.getElementById('tweet').focus();
     });
   };
   $scope.postTweet = function() {
-    TwitterService.postTweet($scope.twitter.tweet, function(res) {
+    TwitterService.postTweet($scope.twitterModal.tweet, function(res) {
       console.log(res);
       GeolocationService.places()
       .then(function(places) {
@@ -118,18 +115,20 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
           loc_name: places[0].name
         };
         $scope.$emit('newCard', obj);
-        $scope.closeTwitterModal();
+        $scope.closeModal();
       });
     });
-    
-  };
-  $scope.closeTwitterModal = function() {
-    $scope.twitter.hide();
-    $scope.twitter.tweet = '';
   };
 
 
- // Cleanup modal.
+  // General modal functions
+  $scope.closeModal = function() {
+    $scope.noteModal.hide();
+    $scope.noteModal.note = '';
+
+    $scope.twitterModal.hide();
+    $scope.twitterModal.tweet = '';
+  };
   $scope.$on('$destroy', function() {
     $scope.modal.remove();
     $scope.twitter.remove();
