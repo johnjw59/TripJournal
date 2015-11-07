@@ -120,6 +120,24 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
     });
   };
 
+  //Check-in functionality
+  $scope.checkin = function() {
+    GeolocationService.places()
+    .then(function(places) {
+      var obj = {
+        type: 'checkin',
+        date: new Date(),
+        loc_coords: {
+          lat: places.loc.lat,
+          lon: places.loc.lon
+        },
+        loc_name: places[0].name
+      };
+
+      $scope.$emit('newCard', obj);
+    });
+  };
+
 
   // General modal functions
   $scope.closeModal = function() {

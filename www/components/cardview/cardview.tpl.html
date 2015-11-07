@@ -24,6 +24,10 @@
     </div>
   </div>
 
+  <div ng-switch-when="checkin" class="item item-image">
+    <img ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{card.loc_coords.lat}},{{card.loc_coords.lon}}&amp;zoom=17&amp;scale=2&amp;size=600x300&amp;maptype=roadmap&amp;markers={{card.loc_coords.lat}},{{card.loc_coords.lon}}&amp;key=AIzaSyCKi4vyRxY18xmARHs_ipOo1CXVHTd5H9I" />
+  </div>
+
   <div class="item card-info">
     <div class="row">
       <div class="col">{{card.loc_name}}</div>
