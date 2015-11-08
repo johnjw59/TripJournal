@@ -31,17 +31,18 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
       GeolocationService.places()
       .then(function(places) {
         var obj = {
-          type: 'image',
-          img_url: img,
-          date: new Date(),
-          loc_coords: {
-            lat: places.loc.lat,
-            lon: places.loc.lon
+          data: {
+            type: 'image',
+            img_url: img,
+            date: new Date(),
+            loc_coords: {
+              lat: places.loc.lat,
+              lon: places.loc.lon
+            }
           },
-          loc_name: places[0].name
+          places: places
         };
-
-        $scope.$emit('newCard', obj);
+        $scope.openPlaces(obj);
       });
     }, function(err) {
       console.error(err);
@@ -67,18 +68,21 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
     GeolocationService.places()
     .then(function(places) {
       var obj = {
-        type: 'note',
-        text: $scope.noteModal.note,
-        date: new Date(),
-        loc_coords: {
-          lat: places.loc.lat,
-          lon: places.loc.lon
+        data: {
+          type: 'note',
+          text: $scope.noteModal.note,
+          date: new Date(),
+          loc_coords: {
+            lat: places.loc.lat,
+            lon: places.loc.lon
+          }
         },
-        loc_name: places[0].name
+        places: places
       };
-
-      $scope.$emit('newCard', obj);
-      $scope.closeModal();
+      $scope.noteModal.hide()
+      .then(function() {
+        $scope.openPlaces(obj);
+      });
     });
   };
 
@@ -103,44 +107,77 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
       GeolocationService.places()
       .then(function(places) {
         var obj = {
-          type: 'tweet',
-          user: res.user.name,
-          profile_img: res.user.profile_image_url_https,
-          text: res.text,
-          date: new Date(res.created_at),
-          loc_coords: {
-            lat: places.loc.lat,
-            lon: places.loc.lon
+          data: {
+            type: 'tweet',
+            user: res.user.name,
+            profile_img: res.user.profile_image_url_https,
+            text: res.text,
+            date: new Date(res.created_at),
+            loc_coords: {
+              lat: places.loc.lat,
+              lon: places.loc.lon
+            }
           },
-          loc_name: places[0].name
+          places: places
         };
-        $scope.$emit('newCard', obj);
-        $scope.closeModal();
+        $scope.twitterModal.hide()
+        .then(function() {
+         $scope.openPlaces(obj);
+       });
       });
     });
   };
 
-  //Check-in functionality
+
+  // Check-in functionality
   $scope.checkin = function() {
     GeolocationService.places()
     .then(function(places) {
       var obj = {
-        type: 'checkin',
-        date: new Date(),
-        loc_coords: {
-          lat: places.loc.lat,
-          lon: places.loc.lon
+        data: {
+          type: 'checkin',
+          date: new Date(),
+          loc_coords: {
+            lat: places.loc.lat,
+            lon: places.loc.lon
+          }
         },
-        loc_name: places[0].name
+        places: places
       };
-
-      $scope.$emit('newCard', obj);
+      $scope.openPlaces(obj);
     });
+  };
+
+
+  // Place chooser functionality. Responsible for event broadcasting
+  $ionicModal.fromTemplateUrl('pages/home/places.tpl.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.placesModal = modal;
+    $scope.placesModal.places = [];
+  });
+  $scope.openPlaces = function(obj) {
+    $scope.placesModal.data = obj.data;
+    $scope.placesModal.places = obj.places;
+
+    if (obj.places.length > 1) {
+      $scope.placesModal.show();
+    } else {
+      $scope.choosePlace(obj.places[0]);
+    }
+  };
+  $scope.choosePlace = function(place) {
+    $scope.placesModal.data.loc_name = place.name;
+    $scope.$emit('newCard', $scope.placesModal.data);
+    $scope.closeModal();
   };
 
 
   // General modal functions
   $scope.closeModal = function() {
+    $scope.placesModal.hide();
+
     $scope.noteModal.hide();
     $scope.noteModal.note = '';
 
