@@ -16,10 +16,7 @@ var paths = {
     '!./www/lib/**'
   ]
 };
-var bower_packages = [
-  'ngCordova',
-  'ngmap'
-];
+var bower_packages = [];
 
 gulp.task('default', ['sass', 'javascript']);
 
