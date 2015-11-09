@@ -1,0 +1,11 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Where are you?</h1>
+    <button class="button button-clear icon-right ion-close button-positive button-dark" ng-click="closeModal()"></button>
+  </ion-header-bar>
+  <ion-content>
+    <ion-list>
+      <ion-item ng-repeat="place in placesModal.places" ng-click="choosePlace(place)">{{place.name}}</ion-item>
+    </ion-list>
+  </ion-content>
+</ion-modal-view>
