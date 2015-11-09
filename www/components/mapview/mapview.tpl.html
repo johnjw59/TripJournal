@@ -2,4 +2,7 @@
   <marker position="[{{center.lat}}, {{center.lng}}]" icon="{{userIcon}}"></marker>
 
   <marker ng-repeat="marker in markers" position="[{{marker.loc_coords.lat}}, {{marker.loc_coords.lon}}]"></marker>
+
+  <shape name="polyline" path="{{path}}" geodesic="true" stroke-color="#FF0000" stroke-opacity="1.0" stroke-weight="2"></shape>
+
 </map>
