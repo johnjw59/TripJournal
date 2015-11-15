@@ -1,5 +1,7 @@
 angular.module('service.cards', [])
 .service('CardsService', function($rootScope) {
+  var ParseCard = Parse.Object.extend("Card");
+
   var self = {
     cards: [
       {
@@ -66,8 +68,44 @@ angular.module('service.cards', [])
   };
 
   $rootScope.$on('newCard', function(event, data) {
-    console.log(data);
     self.cards.unshift(data);
+
+    var card = new ParseCard();
+
+    // Both of these values should be retrieved from local storage
+    card.set('userId', 1);
+    card.set('tripId', 1);
+
+    card.set('cardType', data.type);
+    card.set('locationName', data.loc_name);
+
+    var loc = new Parse.GeoPoint({latitude: data.loc_coords.lat, longitude: data.loc_coords.lon});
+    card.set('location', loc);
+
+    switch(data.type) {
+      case 'image':
+        card.set('data', data.img_url);
+        break;
+      case 'tweet':
+        card.set('data', data.text);
+        card.set('twitterUser', data.user);
+        card.set('twitterProfilePic', data.pofile_image);
+        break;
+      case 'note':
+        card.set('data', data.text);
+        break;
+    }
+
+    card.save(null, {
+      success: function(card) {
+        console.log(card);
+      },
+      error: function(card, error) {
+        console.error(error);
+        console.log(card);
+      }
+    });
+    
   });
 
   return self;
