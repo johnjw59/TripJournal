@@ -11,7 +11,8 @@
     "parse": "~1.6.7",
     "jsSHA": "~1.6.x",
     "angular-resource": "~1.4.7",
-    "ng-twitter-api": "~0.1.5"
+    "ng-twitter-api": "~0.1.5",
+    "parse-sdk": "~v1.4.2"
   },
   "resolutions": {
     "angular": "~1.4.x"
