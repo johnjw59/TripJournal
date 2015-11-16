@@ -1,5 +1,7 @@
 angular.module('app', ['ionic', 'ngCordova', 'ngTwitter', 'ngResource', 'service.geolocation', 'service.cards', 'page.login', 'page.home', 'page.setting', 'TwitterService'])
-.run(function($ionicPlatform, TwitterService, GeolocationService) {
+.run(function($ionicPlatform, TwitterService, GeolocationService, CardsService) {
+  Parse.initialize("MY4KyWo5RUK2yX6GIFEambS54Mv8X4EXm7PIoSBs","qFqeFSzjVHxEpOKYWKjuOHYs42PhkzWWwVSEhaqE");
+  
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -10,10 +12,8 @@ angular.module('app', ['ionic', 'ngCordova', 'ngTwitter', 'ngResource', 'service
       StatusBar.styleDefault();
     }
     TwitterService.configure();
-
     GeolocationService.loc();
-
-    Parse.initialize("MY4KyWo5RUK2yX6GIFEambS54Mv8X4EXm7PIoSBs","qFqeFSzjVHxEpOKYWKjuOHYs42PhkzWWwVSEhaqE");
+    CardsService.get();
   });
 })
 

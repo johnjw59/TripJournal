@@ -70,9 +70,14 @@ angular.module('service.cards', [])
       var query = new Parse.Query(ParseCard);
       // Should be retrieved from local storage
       query.equalTo('userId', '1').equalTo('tripId', 'ZmztBpfCsz');
+      query.ascending("createdAt");
       query.find({
         success: function(results) {
           console.log(results);
+          self.cards = [];
+          for(i = 0; i < results.length; i++) {
+            self.cards.push(results[i].attributes);
+          }
         },
         error: function(err) {
           console.error(err);
