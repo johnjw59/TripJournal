@@ -43,10 +43,13 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
 
       $cordovaCamera.getPicture(options)
       .then(function(uri) {
+        var tempUri = 'file:///storage/emulated/0/camera-p.jpg'
         console.log('got uri ' + uri);
         window.resolveLocalFileSystemURL(uri, function(fileEntry) {
+
           console.log('trying to read file');
           fileEntry.file(function(file) {
+            
             console.log('file read');
             var uploader = new MediaUploader({
               file: file,
@@ -59,7 +62,7 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
                   var obj = {
                     data: {
                       type: 'image',
-                      img_url: uri,
+                      img_url: tempUri,
                       date: new Date(),
                       loc_coords: {
                         lat: places.loc.lat,
@@ -75,13 +78,17 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
                 console.log('Upload not successful ' + res);
               },
             });
+
             uploader.upload();
+
           }, function(err) {
-            console.error(err);
+            console.log(err);
           });
+        }, function(err) {
+          console.log(err);
         });
       }, function(err) {
-        console.error(err);
+        console.log(err);
       });
     };
   }
