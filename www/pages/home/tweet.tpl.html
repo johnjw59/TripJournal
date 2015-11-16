@@ -1,12 +1,12 @@
 <ion-modal-view>
   <ion-header-bar>
-    <h1 class="title">Make a Note</h1>
+    <h1 class="title">Compose New Tweet</h1>
     <button class="button button-clear icon-right ion-close button-positive button-dark" ng-click="closeModal()"></button>
   </ion-header-bar>
   <ion-content scroll="false">
-    <textarea id="make-note" ng-model="noteModal.note"></textarea>
+    <textarea id="tweet" ng-model="twitterModal.tweet" maxlength="140"></textarea>
   </ion-content>
   <ion-footer-bar class="bar-positive">
-    <button class="button button-full button-clear note-submit" ng-click="saveNote()">Submit</button>
+    <button class="button button-full button-clear note-submit" ng-click="postTweet()">Post</button>
   </ion-footer-bar>
 </ion-modal-view>

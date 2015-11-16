@@ -49,10 +49,21 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
   }
 }
 
-#make-note {
+#make-note, #tweet {
   height: 100%;
   width: 100%;
 }
+
 .button.button-full.note-submit {
   margin: 0px;
 }
+
+.map {
+  width: 100%;
+  height: 100% !important;
+}
+
+.scroll, .mapWrap {
+  height: 100%;
+}
+
