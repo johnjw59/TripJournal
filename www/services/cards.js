@@ -6,95 +6,96 @@ angular.module('service.cards', [])
     cards: [
       {
         type: 'image',
-        img_url: 'img/164.jpg',
-        date: new Date(),
-        loc_name: 'Hugh Dempster Pavilion',
-        loc_coords: {
-          lat: 49.2610,
-          lon: -123.2480
+        data: {img_url: 'img/164.jpg'},
+        createdAt: new Date(),
+        locationName: 'Hugh Dempster Pavilion',
+        location: {
+          latitude: 49.2610,
+          longitude: -123.2480
         }
       },
       {
         type: 'image',
-        img_url: 'img/ConstructionDemoWaste.jpg',
-        date: new Date(),
-        loc_name: 'UBC',
-        loc_coords: {
-          lat: 49.2656,
-          lon: -123.2503
+        data: {img_url: 'img/ConstructionDemoWaste.jpg'},
+        createdAt: new Date(),
+        locationName: 'UBC',
+        location: {
+          latitude: 49.2656,
+          longitude: -123.2503
         }
       },
       {
         type: 'note',
-        text: 'Ugh, construction again. UBC: under construction since 1915...',
-        date: new Date(),
-        loc_name: 'UBC',
-        loc_coords: {
-          lat: 49.2656,
-          lon: -123.2503
+        data: {text: 'Ugh, construction again. UBC: under construction since 1915...'},
+        createdAt: new Date(),
+        locationName: 'UBC',
+        location: {
+          latitude: 49.2656,
+          longitude: -123.2503
         }
       },
       {
         type: 'image',
-        img_url: 'img/UBC-nest-2.jpg',
-        date: new Date(),
-        loc_name: 'UBC Nest',
-        loc_coords: {
-          lat: 49.2673,
-          lon: -123.2504
+        data: {img_url: 'img/UBC-nest-2.jpg'},
+        createdAt: new Date(),
+        locationName: 'UBC Nest',
+        location: {
+          latitude: 49.2673,
+          longitude: -123.2504
         }
       },
       {
         type: 'image',
-        img_url: 'img/ubc.jpg',
-        date: new Date(),
-        loc_name: 'UBC',
-        loc_coords: {
-          lat: 49.2542,
-          lon: -123.2411
+        data: {img_url: 'img/ubc.jpg'},
+        createdAt: new Date(),
+        locationName: 'UBC',
+        location: {
+          latitude: 49.2542,
+          longitude: -123.2411
         }
       },
       {
         type: 'note',
-        text: 'A look around UBC campus, and a demo of TripJournal!!!',
-        date: new Date(),
-        loc_name: 'UBC',
-        loc_coords: {
-          lat: 49.2648,
-          lon: -123.2504
+        data: {text: 'A look around UBC campus, and a demo of TripJournal!!!'},
+        createdAt: new Date(),
+        locationName: 'UBC',
+        location: {
+          latitude: 49.2648,
+          longitude: -123.2504
         }
       }
     ],
+
+    get: function() {
+      var query = new Parse.Query(ParseCard);
+      // Should be retrieved from local storage
+      query.equalTo('userId', '1').equalTo('tripId', 'ZmztBpfCsz');
+      query.find({
+        success: function(results) {
+          console.log(results);
+        },
+        error: function(err) {
+          console.error(err);
+        }
+      });
+    }
   };
 
-  $rootScope.$on('newCard', function(event, data) {
-    self.cards.unshift(data);
+  $rootScope.$on('newCard', function(event, obj) {
+    self.cards.unshift(card);
 
     var card = new ParseCard();
 
     // Both of these values should be retrieved from local storage
-    card.set('userId', 1);
-    card.set('tripId', 1);
+    card.set('userId', '1');
+    card.set('tripId', '1');
 
-    card.set('cardType', data.type);
-    card.set('locationName', data.loc_name);
+    card.set('cardType', obj.type);
+    card.set('locationName', obj.locationName);
+    card.set('data', obj.data);
 
-    var loc = new Parse.GeoPoint({latitude: data.loc_coords.lat, longitude: data.loc_coords.lon});
+    var loc = new Parse.GeoPoint({latitude: obj.location.latitude, longitude: obj.location.longitude});
     card.set('location', loc);
-
-    switch(data.type) {
-      case 'image':
-        card.set('data', data.img_url);
-        break;
-      case 'tweet':
-        card.set('data', data.text);
-        card.set('twitterUser', data.user);
-        card.set('twitterProfilePic', data.pofile_image);
-        break;
-      case 'note':
-        card.set('data', data.text);
-        break;
-    }
 
     card.save(null, {
       success: function(card) {

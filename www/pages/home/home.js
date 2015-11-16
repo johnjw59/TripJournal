@@ -31,13 +31,13 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
       GeolocationService.places()
       .then(function(places) {
         var obj = {
-          data: {
+          card: {
             type: 'image',
-            img_url: img,
-            date: new Date(),
-            loc_coords: {
-              lat: places.loc.lat,
-              lon: places.loc.lon
+            data: {img_url: img},
+            createdAt: new Date(),
+            location: {
+              latitude: places.loc.lat,
+              longitude: places.loc.lon
             }
           },
           places: places
@@ -68,13 +68,13 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
     GeolocationService.places()
     .then(function(places) {
       var obj = {
-        data: {
+        card: {
           type: 'note',
-          text: $scope.noteModal.note,
-          date: new Date(),
-          loc_coords: {
-            lat: places.loc.lat,
-            lon: places.loc.lon
+          data: {text: $scope.noteModal.note} ,
+          createdAt: new Date(),
+          location: {
+            latitude: places.loc.lat,
+            longitude: places.loc.lon
           }
         },
         places: places
@@ -107,15 +107,17 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
       GeolocationService.places()
       .then(function(places) {
         var obj = {
-          data: {
+          card: {
             type: 'tweet',
-            user: res.user.name,
-            profile_img: res.user.profile_image_url_https,
-            text: res.text,
-            date: new Date(res.created_at),
-            loc_coords: {
-              lat: places.loc.lat,
-              lon: places.loc.lon
+            data: {
+              user: res.user.name,
+              profile_img: res.user.profile_image_url_https,
+              tweet: res.text,
+            },
+            createdAt: new Date(res.created_at),
+            location: {
+              latitude: places.loc.lat,
+              longitude: places.loc.lon
             }
           },
           places: places
@@ -134,12 +136,12 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
     GeolocationService.places()
     .then(function(places) {
       var obj = {
-        data: {
+        card: {
           type: 'checkin',
-          date: new Date(),
-          loc_coords: {
-            lat: places.loc.lat,
-            lon: places.loc.lon
+          createdAt: new Date(),
+          location: {
+            latitude: places.loc.lat,
+            longitude: places.loc.lon
           }
         },
         places: places
@@ -158,7 +160,7 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
     $scope.placesModal.places = [];
   });
   $scope.openPlaces = function(obj) {
-    $scope.placesModal.data = obj.data;
+    $scope.placesModal.card = obj.card;
     $scope.placesModal.places = obj.places;
 
     if (obj.places.length > 1) {
@@ -168,8 +170,9 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
     }
   };
   $scope.choosePlace = function(place) {
-    $scope.placesModal.data.loc_name = place.name;
-    $scope.$emit('newCard', $scope.placesModal.data);
+    $scope.placesModal.card.locationName = place.name;
+    console.log($scope.placesModal.card);
+    $scope.$emit('newCard', $scope.placesModal.card);
     $scope.closeModal();
   };
 
