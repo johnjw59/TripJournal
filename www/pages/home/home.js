@@ -43,7 +43,6 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
 
       $cordovaCamera.getPicture(options)
       .then(function(uri) {
-        var tempUri = 'file:///storage/emulated/0/camera-p.jpg'
         console.log('got uri ' + uri);
         window.resolveLocalFileSystemURL(uri, function(fileEntry) {
 
