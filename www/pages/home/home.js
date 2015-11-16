@@ -25,8 +25,8 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
     var access_token = window.localStorage.getItem('google_access_token');
     if (access_token === null) {
       $ionicPopup.alert({
-        title: 'Authentication Required',
-        template: 'Click OK to Login'
+        title: 'Google Authentication Required',
+        template: 'Click OK to Login',
       }).then(function(res) {
         if (res) {
           $state.go('setting');
@@ -35,29 +35,44 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
     } else {
       var options = {
         quality: 75,
+        destinationType: Camera.destinationType.DATA_URL,
         encodingType: Camera.EncodingType.JPEG,
         correctOrientation: true,
         saveToPhotoAlbum: false
       };
-      //TODO - upload img to Drive, broadcast drive url
+
       $cordovaCamera.getPicture(options)
       .then(function(img) {
-        GeolocationService.places()
-        .then(function(places) {
-          var obj = {
-            data: {
-              type: 'image',
-              img_url: img,
-              date: new Date(),
-              loc_coords: {
-                lat: places.loc.lat,
-                lon: places.loc.lon
-              }
-            },
-            places: places
-          };
-          $scope.openPlaces(obj);
+        //upload picture to Drive
+        var uploader = new MediaUploader({
+          file: img, //to do - this needs to be a file, not img uri
+          token: access_token,
+          onComplete: function(res) {
+            GeolocationService.places()
+            .then(function(places) {
+              var obj = {
+                data: {
+                  type: 'image',
+                  img_url: img,
+                  date: new Date(),
+                  loc_coords: {
+                    lat: places.loc.lat,
+                    lon: places.loc.lon
+                  }
+                },
+                places: places
+              };
+              $scope.openPlaces(obj);
+            });
+          },
+          onError: function(res) {
+            $ionicPopup.alert({
+              title: 'Upload not successful',
+              template: res,
+            });
+          },
         });
+        uploader.upload();
       }, function(err) {
         console.error(err);
       });
