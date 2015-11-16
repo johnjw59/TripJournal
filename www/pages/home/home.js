@@ -35,7 +35,6 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
     } else {
       var options = {
         quality: 75,
-        destinationType: Camera.destinationType.DATA_URL,
         encodingType: Camera.EncodingType.JPEG,
         correctOrientation: true,
         saveToPhotoAlbum: false
