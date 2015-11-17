@@ -1,4 +1,4 @@
-angular.module('app', ['ionic', 'ngCordova', 'ngTwitter', 'ngResource', 'service.geolocation', 'service.cards', 'page.login', 'page.home', 'page.setting', 'TwitterService'])
+angular.module('app', ['ionic', 'ngCordova', 'ngTwitter', 'ngResource', 'service.geolocation', 'service.cards', 'page.login', 'page.home', 'page.setting', 'page.newTrip', 'TwitterService'])
 .run(function($ionicPlatform, TwitterService, GeolocationService, CardsService) {
   Parse.initialize("MY4KyWo5RUK2yX6GIFEambS54Mv8X4EXm7PIoSBs","qFqeFSzjVHxEpOKYWKjuOHYs42PhkzWWwVSEhaqE");
   
@@ -28,6 +28,11 @@ angular.module('app', ['ionic', 'ngCordova', 'ngTwitter', 'ngResource', 'service
     templateUrl: 'pages/login/login.tpl.html',
     controller: 'LoginCtrl'
   })
+  .state('new-trip', {
+    url: '/new-trip',
+    templateUrl: 'pages/new-trip/new-trip.tpl.html',
+    controller: 'NewTripCtrl'
+  })
   .state('home', {
     url: '/home',
     templateUrl: 'pages/home/home.tpl.html',
@@ -46,10 +51,15 @@ angular.module('app', ['ionic', 'ngCordova', 'ngTwitter', 'ngResource', 'service
   /*
     if (no authentication token) {
       $urlRouterProvider.other('/login');
-    } else {
+    } else if () {
       $urlRouterProvider.otherwise('/home');
     }
-  */ 
-  $urlRouterProvider.otherwise('/home');
+  */
+  // if not currently on a trip
+  /*if (window.localStorage.getItem('trip_id') === null) {
+    $urlRouterProvider.otherwise('/new-trip');
+  } else {*/
+    $urlRouterProvider.otherwise('/home');
+  //}
   
 });
