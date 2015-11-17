@@ -31,6 +31,7 @@
     "cordova-plugin-camera",
     "cordova-plugin-inappbrowser",
     "cordova-plugin-geolocation",
+    "cordova-plugin-file",
     "com.ionic.keyboard"
   ],
   "cordovaPlatforms": [
