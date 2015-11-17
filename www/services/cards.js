@@ -10,7 +10,7 @@ angular.module('service.cards', [])
 
       var query = new Parse.Query(ParseCard);
       // Should be retrieved from local storage
-      query.equalTo('userId', '1').equalTo('tripId', 'ZmztBpfCsz');
+      query.equalTo('userId', '1').equalTo('tripId', window.localStorage.getItem('trip_id'));
       query.ascending("createdAt");
       query.find({
         success: function(results) {
@@ -37,7 +37,7 @@ angular.module('service.cards', [])
 
     // Both of these values should be retrieved from local storage
     card.set('userId', '1');
-    card.set('tripId', '1');
+    card.set('tripId', window.localStorage.getItem('trip_id'));
 
     card.set('cardType', obj.type);
     card.set('locationName', obj.locationName);
@@ -47,7 +47,7 @@ angular.module('service.cards', [])
     card.set('location', loc);
 
     // Save the new card to Parse (commented out for dev)
-    /*card.save(null, {
+    card.save(null, {
       success: function(card) {
         console.log(card);
       },
@@ -55,7 +55,7 @@ angular.module('service.cards', [])
         console.error(error);
         console.log(card);
       }
-    });*/
+    });
     
   });
 

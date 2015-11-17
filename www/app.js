@@ -55,11 +55,10 @@ angular.module('app', ['ionic', 'ngCordova', 'ngTwitter', 'ngResource', 'service
       $urlRouterProvider.otherwise('/home');
     }
   */
-  // if not currently on a trip
-  /*if (window.localStorage.getItem('trip_id') === null) {
+  if (window.localStorage.getItem('trip_id') === null) {
     $urlRouterProvider.otherwise('/new-trip');
-  } else {*/
+  } else {
     $urlRouterProvider.otherwise('/home');
-  //}
+  }
   
 });
