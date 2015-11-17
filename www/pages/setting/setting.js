@@ -1,5 +1,29 @@
 angular.module('page.setting', [])
-.controller("SettingCtrl", function($scope, $cordovaOauth, $ionicPlatform, TwitterService) {
+.controller("SettingCtrl", function($scope, $state, $cordovaOauth, $ionicPlatform, $ionicHistory, TwitterService) {
+  $scope.$state = $state;
+
+  $scope.$on('$ionicView.enter', function() {
+    $scope.on_trip = (window.localStorage.getItem('trip_id') === null) ? false : true;
+  });
+
+  $scope.endTrip = function() {
+    var ParseTrip = Parse.Object.extend("Trip");
+
+    var trip = new ParseTrip();
+    trip.id = window.localStorage.getItem('trip_id');
+
+    trip.set('end', new Date());
+    trip.save(null, {
+      success: function(ret) {
+        window.localStorage.removeItem('trip_id');
+        $state.go('new-trip');
+      },
+      error: function(err) {
+        console.error(err);
+      }
+    });
+  };
+
   $scope.authenticateUser = function() {
     $cordovaOauth.google("1011840488483-5svsjfnrr9von30eu147lp74qrvbef4p.apps.googleusercontent.com", ["https://www.googleapis.com/auth/urlshortener", "https://www.googleapis.com/auth/userinfo.email"])
     .then(function(result) {
@@ -23,14 +47,14 @@ angular.module('page.setting', [])
   $scope.authenticateTwitter = function() {
     if (TwitterService.isAuthenticated()) {
       $scope.showLogin = false;
-      console.log('is Authenticated')
+      console.log('is Authenticated');
     } else {
-      console.log('not Authenticated')
+      console.log('not Authenticated');
       TwitterService.initialize().then(function(result) {
         if(result === true) {
           $scope.showLogin = false;
         }
       });
     }
-  }
+  };
 });

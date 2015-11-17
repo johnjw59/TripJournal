@@ -1,17 +1,40 @@
 <ion-view>
   <ion-nav-title>Settings</ion-nav-title>
 
-  <ion-content ng-controller="SettingCtrl" class="has-header" padding="true">
+  <ion-content class="has-header" padding="true">
+    
+    <div class="list">
+      <div ng-show="on_trip" class="item item-button-right">
+        End Current Trip
+        <button class="button button-assertive" ng-click="endTrip()">End</button>
+      </div>
+
+      <div class="item item-button-right">
+        View Previous Trips
+        <button class="button button-calm" ng-click="">View</button>
+      </div>
+    </div>
+
     <div class="list">
       <div class="item item-button-right">
         Google Authentication
         <button class="button button-balanced" ng-click="authenticateUser()">Login</button>
       </div>
     </div>
-    <div class="item item-button-right">
-      Twitter Authentication
-      <button ng-if="showLogin" class="button button-balanced" ng-click="authenticateTwitter()">Login</button>
-      <button ng-if="!showLogin" class="button button-stable" disabled>Logged in</button>
+    
+    <div class="list">
+      <div class="item item-button-right">
+        Login to Twitter
+        <button ng-if="showLogin" class="button button-balanced" ng-click="authenticateTwitter()">Login</button>
+        <button ng-if="!showLogin" class="button button-stable" disabled>Logged in</button>
+      </div>
+
+      <div class="item item-button-right">
+        Login to Instagram
+        <button ng-if="showLogin" class="button button-balanced">Login</button>
+        <button ng-if="!showLogin" class="button button-stable" disabled>Logged in</button>
+      </div>
+
     </div>
   </ion-content>
 </ion-view>
