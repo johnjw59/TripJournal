@@ -1,5 +1,5 @@
 angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 'ionic'])
-.controller('HomeCtrl', function($scope, $q, $state, $cordovaCamera, $ionicModal, $ionicTabsDelegate, $ionicPlatform, ngGPlacesAPI, GeolocationService, TwitterService) {
+.controller('HomeCtrl', function($scope, $state, $cordovaCamera, $ionicModal, $ionicTabsDelegate, ngGPlacesAPI, GeolocationService, TwitterService) {
   $scope.$state = $state;
 
   // Set default tab on view load
@@ -17,6 +17,33 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
     $scope.tab = ($scope.tab == 'cards') ? 'map' : 'cards';
   };
   
+
+  // Place chooser functionality. Responsible for event broadcasting
+  $ionicModal.fromTemplateUrl('pages/home/places.tpl.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.placesModal = modal;
+    $scope.placesModal.places = [];
+  });
+  $scope.openPlaces = function(obj) {
+    $scope.placesModal.card = obj.card;
+    $scope.placesModal.places = obj.places;
+
+    if (obj.places.length > 1) {
+      $scope.placesModal.show();
+    } else {
+      $scope.choosePlace(obj.places[0]);
+    }
+  };
+  $scope.choosePlace = function(place) {
+    $scope.placesModal.card.locationName = place.name;
+    
+    // This is the newCard event that triggers a Parse save
+    $scope.$emit('newCard', $scope.placesModal.card);
+    $scope.closeModal();
+  };
+
 
   // Camera taking functionality
   $scope.takePicture = function() {
@@ -148,32 +175,6 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
       };
       $scope.openPlaces(obj);
     });
-  };
-
-
-  // Place chooser functionality. Responsible for event broadcasting
-  $ionicModal.fromTemplateUrl('pages/home/places.tpl.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.placesModal = modal;
-    $scope.placesModal.places = [];
-  });
-  $scope.openPlaces = function(obj) {
-    $scope.placesModal.card = obj.card;
-    $scope.placesModal.places = obj.places;
-
-    if (obj.places.length > 1) {
-      $scope.placesModal.show();
-    } else {
-      $scope.choosePlace(obj.places[0]);
-    }
-  };
-  $scope.choosePlace = function(place) {
-    $scope.placesModal.card.locationName = place.name;
-    console.log($scope.placesModal.card);
-    $scope.$emit('newCard', $scope.placesModal.card);
-    $scope.closeModal();
   };
 
 
