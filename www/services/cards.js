@@ -14,7 +14,6 @@ angular.module('service.cards', [])
       query.ascending("createdAt");
       query.find({
         success: function(results) {
-          console.log(results);
           self.cards = [];
           for(i = 0; i < results.length; i++) {
             self.cards.push(results[i].attributes);
