@@ -24,6 +24,10 @@ angular.module('mapview', ['ngMap'])
       
       $rootScope.$on('newCard', function(event, data) {
         $scope.markers = CardsService.cards;
+
+        $scope.path = CardsService.cards.map(function(card) {
+          return [card.location.latitude, card.location.longitude];
+        });
       });
     }
   };
