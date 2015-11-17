@@ -39,7 +39,7 @@ angular.module('service.cards', [])
     card.set('userId', '1');
     card.set('tripId', '1');
 
-    card.set('cardType', obj.type);
+    card.set('type', obj.type);
     card.set('locationName', obj.locationName);
     card.set('data', obj.data);
 
