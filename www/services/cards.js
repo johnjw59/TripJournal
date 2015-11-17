@@ -77,6 +77,7 @@ angular.module('service.cards', [])
           self.cards = [];
           for(i = 0; i < results.length; i++) {
             self.cards.push(results[i].attributes);
+            self.cards[i].createdAt = results[i].createdAt;
           }
         },
         error: function(err) {
