@@ -1,13 +1,14 @@
 angular.module('page.newTrip', [])
-.controller("NewTripCtrl", function($scope, $ionicHistory, $state, $ionicLoading) {
+.controller("NewTripCtrl", function($scope, $ionicHistory, $state, $ionicLoading, CardsService) {
   // Only want to be on this page if we don't have a trip currently set
   if (window.localStorage.getItem('trip_id') !== null) {
     $state.go('home');
   }
 
-  // Clear history on entering so we don't get weird back button issues
+  // Clear history and cache on entering so we don't get weird back button issues
   $scope.$on('$ionicView.enter', function() {
     $ionicHistory.clearHistory();
+    $ionicHistory.clearCache();
   });
 
   $scope.$state = $state;
@@ -25,11 +26,13 @@ angular.module('page.newTrip', [])
     trip.save(null, {
       success: function(ret) {
         window.localStorage.setItem('trip_id', ret.id);
-        $ionicLoading.hide();
-        $state.go('home');
+        CardsService.update().then(function() {
+          $ionicLoading.hide();
+          $state.go('home');
+        });
       },
       error: function(err) {
-        console.error(err);
+        console.error('error');
       }
     });
   };
