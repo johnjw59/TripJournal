@@ -1,0 +1,12 @@
+<ion-view>
+  <ion-nav-title>Previous Trips</ion-nav-title>
+
+  <ion-content class="has-header" padding="true">
+    <div class="list">
+      <div class="item item-button-right" ng-repeat="trip in trips" ng-if="trip.attributes.hasOwnProperty('end')">
+        {{trip.attributes.start | date:'mediumDate'}} - {{trip.attributes.end | date:'mediumDate'}}
+        <button class="button button-calm" ng-click="">View</button>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

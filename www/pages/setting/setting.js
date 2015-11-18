@@ -2,6 +2,7 @@ angular.module('page.setting', [])
 .controller("SettingCtrl", function($scope, $state, $cordovaOauth, $ionicPlatform, $ionicHistory, $ionicLoading, $ionicPopup, TwitterService) {
   $scope.$state = $state;
 
+  // Only show end trip button if I'm on a trip
   $scope.$on('$ionicView.enter', function() {
     $scope.on_trip = (window.localStorage.getItem('trip_id') === null) ? false : true;
   });
