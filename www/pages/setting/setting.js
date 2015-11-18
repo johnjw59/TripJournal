@@ -1,5 +1,5 @@
 angular.module('page.setting', [])
-.controller("SettingCtrl", function($scope, $state, $cordovaOauth, $ionicPlatform, $ionicHistory, TwitterService) {
+.controller("SettingCtrl", function($scope, $state, $cordovaOauth, $ionicPlatform, $ionicHistory, $ionicLoading, TwitterService) {
   $scope.$state = $state;
 
   $scope.$on('$ionicView.enter', function() {
@@ -7,15 +7,19 @@ angular.module('page.setting', [])
   });
 
   $scope.endTrip = function() {
+    $ionicLoading.show({
+      template: 'Ending your trip...'
+    });
     var ParseTrip = Parse.Object.extend("Trip");
 
     var trip = new ParseTrip();
     trip.id = window.localStorage.getItem('trip_id');
-
     trip.set('end', new Date());
+    
     trip.save(null, {
       success: function(ret) {
         window.localStorage.removeItem('trip_id');
+        $ionicLoading.hide();
         $state.go('new-trip');
       },
       error: function(err) {

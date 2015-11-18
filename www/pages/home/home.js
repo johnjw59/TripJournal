@@ -16,6 +16,7 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
       $scope.tab = 'cards';
     }
   });
+  
   $scope.changeView = function() {
     $scope.tab = ($scope.tab == 'cards') ? 'map' : 'cards';
   };
