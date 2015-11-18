@@ -1,5 +1,5 @@
 angular.module('tripCards', []) 
-.directive('tripCard', function($rootScope, CardsService) {
+.directive('cardview', function($rootScope, CardsService) {
   return {
     scope: {
 

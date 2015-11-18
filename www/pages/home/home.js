@@ -19,6 +19,7 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 
   
   $scope.changeView = function() {
     $scope.tab = ($scope.tab == 'cards') ? 'map' : 'cards';
+    $scope.$broadcast('changedView');
   };
   
 

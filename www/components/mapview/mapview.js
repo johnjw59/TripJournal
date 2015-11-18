@@ -1,9 +1,20 @@
 angular.module('mapview', ['ngMap']) 
-.directive('mapview', function(GeolocationService, $rootScope, CardsService) {
+.directive('mapview', function(GeolocationService, $rootScope, $timeout, CardsService) {
   return {
     scope: {},
     templateUrl: 'components/mapview/mapview.tpl.html',
     link: function($scope) {
+      // redraw map when the view changes and center it on user
+      $scope.$on('changedView', function() {
+        $timeout(function() {
+          google.maps.event.trigger($scope.map, 'resize');
+           $scope.center = {
+            lat: GeolocationService.lat,
+            lng: GeolocationService.lon
+          };
+        }, 250);
+      });
+
       $scope.userIcon = {
         scaledSize: [26, 26],
         anchor: [13, 13],
@@ -11,8 +22,8 @@ angular.module('mapview', ['ngMap'])
       };
 
       $scope.center = {
-        lat: GeolocationService.lat,
-        lng: GeolocationService.lon
+        lat: 0,
+        lng: 0
       };
 
       $scope.markers = CardsService.cards;
