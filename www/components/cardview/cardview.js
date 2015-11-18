@@ -5,7 +5,7 @@ angular.module('tripCards', [])
 
     },
     templateUrl: 'components/cardview/cardview.tpl.html',
-    link: function($scope) {
+    link: function($scope) {      
       $scope.cards = CardsService.cards;
 
       $rootScope.$on('newCard', function(event, data) {

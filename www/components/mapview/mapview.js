@@ -19,11 +19,15 @@ angular.module('mapview', ['ngMap'])
 
       // might need to sort markers by date first or better make service always return in chrono order
       $scope.path = CardsService.cards.map(function(card) {
-        return [card.loc_coords.lat, card.loc_coords.lon];
+        return [card.location.latitude, card.location.longitude];
       });
       
       $rootScope.$on('newCard', function(event, data) {
         $scope.markers = CardsService.cards;
+
+        $scope.path = CardsService.cards.map(function(card) {
+          return [card.location.latitude, card.location.longitude];
+        });
       });
     }
   };

@@ -1,19 +1,17 @@
 angular.module('app', ['ionic', 'ngCordova', 'ngTwitter', 'ngResource', 'service.geolocation', 'service.cards', 'page.login', 'page.home', 'page.setting', 'TwitterService'])
-.run(function($ionicPlatform, TwitterService, GeolocationService) {
+.run(function($ionicPlatform, TwitterService, GeolocationService, CardsService) {
+  Parse.initialize("MY4KyWo5RUK2yX6GIFEambS54Mv8X4EXm7PIoSBs","qFqeFSzjVHxEpOKYWKjuOHYs42PhkzWWwVSEhaqE");
+  
   $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
+    
     TwitterService.configure();
-
     GeolocationService.loc();
-
-    Parse.initialize("MY4KyWo5RUK2yX6GIFEambS54Mv8X4EXm7PIoSBs","qFqeFSzjVHxEpOKYWKjuOHYs42PhkzWWwVSEhaqE");
   });
 })
 
@@ -33,7 +31,12 @@ angular.module('app', ['ionic', 'ngCordova', 'ngTwitter', 'ngResource', 'service
   .state('home', {
     url: '/home',
     templateUrl: 'pages/home/home.tpl.html',
-    controller: 'HomeCtrl'
+    controller: 'HomeCtrl',
+    resolve: {
+      cards: function(CardsService) {
+        return CardsService.update();
+      }
+    }
   })
   .state('setting', {
     url: '/setting',
