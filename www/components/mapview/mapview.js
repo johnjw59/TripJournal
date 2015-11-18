@@ -1,19 +1,15 @@
 angular.module('mapview', ['ngMap']) 
 .directive('mapview', function(GeolocationService, $rootScope, $timeout, CardsService) {
   return {
-    scope: {},
+    scope: {
+      markers: '=?markers'
+    },
     templateUrl: 'components/mapview/mapview.tpl.html',
     link: function($scope) {
-      // redraw map when the view changes and center it on user
-      $scope.$on('changedView', function() {
-        $timeout(function() {
-          google.maps.event.trigger($scope.map, 'resize');
-           $scope.center = {
-            lat: GeolocationService.lat,
-            lng: GeolocationService.lon
-          };
-        }, 250);
-      });
+      $scope.center = {
+        lat: 0,
+        lng: 0
+      };
 
       $scope.userIcon = {
         scaledSize: [26, 26],
@@ -21,24 +17,33 @@ angular.module('mapview', ['ngMap'])
         url: 'img/user-loc.svg'
       };
 
-      $scope.center = {
-        lat: 0,
-        lng: 0
-      };
+      // If markers aren't provided, use the ones from the service
+      if (!$scope.hasOwnProperty('markers')) {
+        $scope.markers = CardsService.cards;
+      }
 
-      $scope.markers = CardsService.cards;
+      // Redraw map when the view changes and center it on user
+      $scope.$on('changedView', function() {
+        $timeout(function() {
+          google.maps.event.trigger($scope.map, 'resize');
+          $scope.center = {
+            lat: GeolocationService.lat,
+            lng: GeolocationService.lon
+          };
+        }, 250);
+      });      
 
-      // might need to sort markers by date first or better make service always return in chrono order
-      $scope.path = CardsService.cards.map(function(card) {
-        return [card.location.latitude, card.location.longitude];
+      // Update path when the markers change
+      $scope.$watch('markers', function(newVal, oldVal) {
+        if (typeof newVal != 'undefined') {
+          $scope.path = $scope.markers.map(function(card) {
+            return [card.location.latitude, card.location.longitude];
+          });
+        }
       });
       
       $rootScope.$on('newCard', function(event, data) {
         $scope.markers = CardsService.cards;
-
-        $scope.path = CardsService.cards.map(function(card) {
-          return [card.location.latitude, card.location.longitude];
-        });
       });
     }
   };

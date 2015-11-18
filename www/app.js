@@ -1,4 +1,4 @@
-angular.module('app', ['ionic', 'ngCordova', 'ngTwitter', 'ngResource', 'service.geolocation', 'service.cards', 'page.login', 'page.home', 'page.setting', 'page.newTrip', 'page.allTrips','TwitterService'])
+angular.module('app', ['ionic', 'ngCordova', 'ngTwitter', 'ngResource', 'service.geolocation', 'service.cards', 'page.login', 'page.home', 'page.setting', 'page.newTrip', 'page.allTrips', 'page.trip', 'TwitterService'])
 .run(function($ionicPlatform, TwitterService, GeolocationService, CardsService) {
   Parse.initialize("MY4KyWo5RUK2yX6GIFEambS54Mv8X4EXm7PIoSBs","qFqeFSzjVHxEpOKYWKjuOHYs42PhkzWWwVSEhaqE");
   
@@ -52,6 +52,11 @@ angular.module('app', ['ionic', 'ngCordova', 'ngTwitter', 'ngResource', 'service
     url: '/all-trips',
     templateUrl: 'pages/all-trips/all-trips.tpl.html',
     controller: 'AllTripsCtrl'
+  })
+  .state('trip', {
+    url: '/trip?:id',
+    templateUrl: 'pages/trip/trip.tpl.html',
+    controller: 'TripCtrl'
   });
   /*
     if (no authentication token) {

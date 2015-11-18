@@ -5,6 +5,7 @@ angular.module('service.cards', [])
   var self = {
     cards: [],
 
+    // Update cards array with current trip cards
     update: function() {
       var defer = $q.defer();
 
@@ -27,9 +28,35 @@ angular.module('service.cards', [])
         }
       });
       return defer.promise;
+    },
+
+    // Get cards for a specific trip
+    getTrip: function(trip_id) {
+      var defer = $q.defer();
+
+      var query = new Parse.Query(ParseCard);
+      // Should be retrieved from local storage
+      query.equalTo('userId', '1').equalTo('tripId', trip_id);
+      query.ascending("createdAt");
+      query.find({
+        success: function(results) {
+          var ret = [];
+          for(i = 0; i < results.length; i++) {
+            ret.push(results[i].attributes);
+            ret[i].createdAt = results[i].createdAt;
+          }
+          defer.resolve(ret);
+        },
+        error: function(err) {
+          console.error(err);
+          defer.reject(err);
+        }
+      });
+      return defer.promise;
     }
   };
 
+  // Save new cards to Parse when they are created
   $rootScope.$on('newCard', function(event, obj) {
     self.cards.unshift(obj);
 

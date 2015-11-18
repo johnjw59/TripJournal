@@ -12,10 +12,9 @@ angular.module('page.allTrips', [])
   
   var query = new Parse.Query(ParseTrip);
   query.equalTo('userId', '1'); // Should be retrieved from local storage
-  query.ascending("createdAt");
+  query.descending("start");
   query.find({
     success: function(ret) {
-      console.log(ret);
       $scope.trips = ret;
       $scope.$apply();
       $ionicLoading.hide();
