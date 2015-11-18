@@ -10,6 +10,8 @@ angular.module('page.newTrip', [])
     $ionicHistory.clearHistory();
   });
 
+  $scope.$state = $state;
+
   $scope.startTrip = function() {
     var ParseTrip = Parse.Object.extend("Trip");
 

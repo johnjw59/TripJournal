@@ -1,9 +1,12 @@
 angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 'ionic'])
-.controller('HomeCtrl', function($scope, $state, $cordovaCamera, $ionicModal, $ionicTabsDelegate, ngGPlacesAPI, GeolocationService, TwitterService) {
+.controller('HomeCtrl', function($scope, $state, $cordovaCamera, $ionicModal, $ionicTabsDelegate, $ionicHistory, ngGPlacesAPI, GeolocationService, TwitterService) {
   $scope.$state = $state;
 
   // Set default tab on view load
   $scope.$on('$ionicView.enter', function() {
+    // Clear history on entering so we don't get weird back button issues
+    $ionicHistory.clearHistory();
+
     if ($scope.tab == 'map') {
       $ionicTabsDelegate.select(1);
       $scope.tab = 'map';
