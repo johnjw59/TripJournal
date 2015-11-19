@@ -5,3 +5,7 @@ notifications:
   email:
     on_success: [change]
     on_failure: [change]
+install:
+  - npm install
+  - gulp install
+  - gulp
