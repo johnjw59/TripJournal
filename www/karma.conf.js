@@ -22,6 +22,7 @@ module.exports = function(config) {
     'lib/ng-twitter-api/dist/ng-twitter-api.min.js',
     'lib/angular-resource/angular-resource.js',
     'lib/ngCordova/dist/ng-cordova.min.js',
+    'lib/ngCordova/dist/ng-cordova-mocks.min.js',
     'lib/parse-sdk/lib/parse.min.js',
     'lib/ngmap/build/scripts/ng-map.min.js',
     'lib/angularjs-google-places/dist/angularjs-google-places.min.js',
@@ -73,7 +74,12 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
+
+    phantomjsLauncher: {
+      // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)
+      exitOnResourceError: true
+    },
 
 
     // Continuous Integration mode

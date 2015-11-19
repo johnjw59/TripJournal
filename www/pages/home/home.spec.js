@@ -1,5 +1,6 @@
 describe('HomeCtrl', function() {
   beforeEach(module('ngCordova'));
+  beforeEach(module('ngCordovaMocks'));
   beforeEach(module('ngTwitter'));
   beforeEach(module('ngResource'));
   beforeEach(module('service.geolocation'));
@@ -21,6 +22,8 @@ describe('HomeCtrl', function() {
       $scope.tab = 'cards';
       $scope.changeView();
       expect($scope.tab).toEqual('map');
+      $scope.changeView();
+      expect($scope.tab).toEqual('cards');
     });
   });
 

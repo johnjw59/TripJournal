@@ -1,3 +1,4 @@
+[![Build Status](https://magnum.travis-ci.com/CS410-2015Fall/Group_30_TripJournal.svg?token=DdjEEDN4qo7xe6yvwq97)](https://magnum.travis-ci.com/CS410-2015Fall/Group_30_TripJournal)
 # TripJournal
 
 ### A trip tracker and visualizer.

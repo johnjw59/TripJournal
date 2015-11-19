@@ -1,4 +1,4 @@
-angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces',  'ngCordova', 'ionic'])
+angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces', 'ionic'])
 .controller('HomeCtrl', function($scope, $state, $cordovaCamera, $ionicModal, $ionicTabsDelegate, ngGPlacesAPI, GeolocationService, TwitterService) {
   $scope.$state = $state;
 
