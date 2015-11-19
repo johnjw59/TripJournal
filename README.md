@@ -18,6 +18,7 @@ generate an expense report which would be useful for corporate trips.
 ```
 npm install
 gulp install
-gulp
 ```
-use `gulp watch` while working to auto compile css and include javascript files
+Use `gulp watch` while working to auto compile css and include javascript files, or just `gulp` to do so once.
+
+Run unit tests with `gulp test`
