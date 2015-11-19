@@ -1,5 +1,5 @@
 angular.module('page.trip', ['tripCards', 'mapview', 'ngMap'])
-.controller("TripCtrl", function($scope, $stateParams, $ionicLoading, $ionicTabsDelegate, CardsService) {
+.controller("TripCtrl", function($scope, $stateParams, $ionicLoading, $ionicTabsDelegate, CardsService, $timeout) {
   // Set default tab on view load
   $scope.$on('$ionicView.enter', function() {
     if ($scope.tab == 'map') {
@@ -24,6 +24,6 @@ angular.module('page.trip', ['tripCards', 'mapview', 'ngMap'])
   CardsService.getTrip($stateParams.id)
   .then(function(cards) {
     $scope.cards = cards;
-    $ionicLoading.hide();
+    $timeout(function(){$ionicLoading.hide();},100);
   });
 });

@@ -1,5 +1,5 @@
 angular.module('page.newTrip', [])
-.controller("NewTripCtrl", function($scope, $ionicHistory, $state, $ionicLoading, CardsService) {
+.controller("NewTripCtrl", function($scope, $ionicHistory, $timeout, $state, $ionicLoading, CardsService) {
   // Only want to be on this page if we don't have a trip currently set
   if (window.localStorage.getItem('trip_id') !== null) {
     $state.go('home');
@@ -27,7 +27,7 @@ angular.module('page.newTrip', [])
       success: function(ret) {
         window.localStorage.setItem('trip_id', ret.id);
         CardsService.update().then(function() {
-          $ionicLoading.hide();
+          $timeout(function(){$ionicLoading.hide();},100);
           $state.go('home');
         });
       },

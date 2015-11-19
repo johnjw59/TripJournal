@@ -1,5 +1,5 @@
 angular.module('page.allTrips', [])
-.controller("AllTripsCtrl", function($scope, $state, $ionicLoading) {
+.controller("AllTripsCtrl", function($scope, $state, $timeout, $ionicLoading) {
   $scope.$state = $state;
   $scope.trips = [];
 
@@ -17,7 +17,7 @@ angular.module('page.allTrips', [])
     success: function(ret) {
       $scope.trips = ret;
       $scope.$apply();
-      $ionicLoading.hide();
+      $timeout(function(){$ionicLoading.hide();},100);
     },
     error: function(err) {
       console.error(err);

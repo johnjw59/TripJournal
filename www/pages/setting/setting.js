@@ -1,5 +1,5 @@
 angular.module('page.setting', [])
-.controller("SettingCtrl", function($scope, $state, $cordovaOauth, $ionicPlatform, $ionicHistory, $ionicLoading, $ionicPopup, TwitterService) {
+.controller("SettingCtrl", function($scope, $state, $cordovaOauth, $timeout, $ionicPlatform, $ionicHistory, $ionicLoading, $ionicPopup, TwitterService) {
   $scope.$state = $state;
 
   // Only show end trip button if I'm on a trip
@@ -26,7 +26,7 @@ angular.module('page.setting', [])
         trip.save(null, {
           success: function(ret) {
             window.localStorage.removeItem('trip_id');
-            $ionicLoading.hide();
+            $timeout(function(){$ionicLoading.hide();},100);
             $state.go('new-trip');
           },
           error: function(err) {
