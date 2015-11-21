@@ -2,6 +2,9 @@
   <ion-nav-title>Previous Trips</ion-nav-title>
 
   <ion-content class="has-header" padding="true">
+    <div ng-if="trips.length === 0" class="center-text">
+      Looks like you haven't been on any trips yet!
+    </div>
     <div class="list">
       <div class="item item-button-right" ng-repeat="trip in trips" ng-if="trip.attributes.hasOwnProperty('end')">
         {{trip.attributes.start | date:'mediumDate'}} - {{trip.attributes.end | date:'mediumDate'}}
