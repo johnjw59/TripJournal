@@ -1,3 +1,4 @@
+[![Build Status](https://magnum.travis-ci.com/CS410-2015Fall/Group_30_TripJournal.svg?token=DdjEEDN4qo7xe6yvwq97)](https://magnum.travis-ci.com/CS410-2015Fall/Group_30_TripJournal)
 # TripJournal
 
 ### A trip tracker and visualizer.
@@ -17,6 +18,7 @@ generate an expense report which would be useful for corporate trips.
 ```
 npm install
 gulp install
-gulp
 ```
-use `gulp watch` while working to auto compile css and include javascript files
+Use `gulp watch` while working to auto compile css and include javascript files, or just `gulp` to do so once.
+
+Run unit tests with `gulp test`
