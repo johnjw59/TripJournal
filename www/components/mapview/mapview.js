@@ -48,7 +48,7 @@ angular.module('mapview', ['ngMap'])
             };
           }
         }
-      });
+      }, true);
       
       $rootScope.$on('newCard', function(event, data) {
         $scope.markers = CardsService.cards;
