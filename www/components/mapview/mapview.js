@@ -5,6 +5,11 @@ angular.module('mapview', ['ngMap'])
       markers: '=?markers'
     },
     templateUrl: 'components/mapview/mapview.tpl.html',
+    controller: function($scope, $state) {
+      $scope.detail = function(event, card) {
+        $state.go('detail',{card: card});
+      };
+    },
     link: function($scope) {
       var center = null;
 
@@ -17,7 +22,6 @@ angular.module('mapview', ['ngMap'])
         lat: GeolocationService.lat,
         lng: GeolocationService.lon
       };
-
       // If markers aren't provided, use the ones from the service, and center on user
       if (!$scope.hasOwnProperty('markers')) {
         $scope.markers = CardsService.cards;

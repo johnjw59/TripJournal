@@ -1,0 +1,43 @@
+<ion-view>
+  <ion-nav-title>Details</ion-nav-title>
+  <ion-content class="has-header" padding="true">
+  
+  <div class="list card">
+    <div ng-show="card.type == 'image'" class="item item-image">
+      <img ng-src="{{card.data.img_url}}" />
+    </div>
+
+    <div ng-show="card.type == 'note'" class="item item-text-wrap">
+      {{card.data.text}}
+    </div>
+
+    <div ng-show="card.type == 'tweet'" class="item item-text-wrap">
+      <div class="row">
+        <div class="col-xs-2">
+          <img ng-src="{{card.data.profile_img}}" class="profile-img" />
+        </div>
+        <div class="col-xs-10">
+          <div class="row">
+            <p>{{card.data.user}}</p>
+          </div>
+          <div class="row">
+            {{card.data.tweet}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div ng-show="card.type == 'checkin'" class="item item-image">
+      <img ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{card.location.latitude}},{{card.location.longitude}}&amp;zoom=17&amp;scale=2&amp;size=600x300&amp;maptype=roadmap&amp;markers={{card.location.latitude}},{{card.location.longitude}}&amp;key=AIzaSyCKi4vyRxY18xmARHs_ipOo1CXVHTd5H9I" />
+    </div>
+       
+    <div class="item card-info">
+      <div class="row">
+        <div class="col">{{card.locationName}}</div>
+        <div class="col">{{card.createdAt | date:'short'}}</div>
+      </div>
+    </div>
+
+  </div>
+  </ion-content>
+</ion-view>
