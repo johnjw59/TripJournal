@@ -6,13 +6,13 @@
     </ion-tabs>
   </ion-nav-title>
   
-  <div ng-if="tab == 'cards'">
-    <ion-content class="has-header has-footer" >
-      <trip-card></trip-card>
+  <div ng-show="tab == 'cards'">
+    <ion-content class="has-header has-footer">
+      <cardview></cardview>
     </ion-content>
   </div>
 
-  <div ng-if="tab == 'map'">
+  <div ng-show="tab == 'map'">
     <ion-content scroll="false" class="has-header has-footer">
       <mapview></mapview>
     </ion-content>

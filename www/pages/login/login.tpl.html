@@ -1,21 +1,23 @@
 <ion-view  hide-nav-bar="true">
-  <ion-content scroll="false">
+  <ion-content ng-controller="LoginCtrl" scroll="false">
     <div class="row row-center vertical-center">
       <div class="col col-center center-text">
         <h4>Welcome to TripJournal</h4>
-        <p>To get started, please login using your google account</p>
-        <button class="button button-balanced button-block" ng-click="login()">Login</button>
-        <p>Or use your email</p>
-        <form novalidate class="simple-form">
-          <div class="form-group">
-            Username: <input type="text" class="form-control" ng-model="user.username" /><br />
-          </div>
-          <div class="form-group">
-          Password: <input type="password" ng-model="user.password" /><br />
-          </div>
-          <input type="submit" ng-click="login(user)" value="Login" />
-        </form>
-        <button class="button button-balanced button-block" ng-click="signup()">Sign up</button>
+        <p>To get started, please enter your email and password below and click <em>Login</em> or <em>Create a New Account</em>!</p>
+        <div class="list list-inset">
+		      <label class="item item-input">
+		        <input type="email" ng-model="email" placeholder="Email" required>
+		      </label>
+		      <label class="item item-input">
+		        <input type="password" ng-model="password" placeholder="Password" required>
+		      </label>
+		    </div>
+        <div class="padding-bottom">
+          <button class="button button-balanced button-block" ng-click="login()">Login</button>
+        </div>
+        <div class="padding-top">
+          <button class="button button-calm button-block" ng-click="register()">Create a New Account</button>
+        </div>
       </div>
     </div>
   </ion-content>

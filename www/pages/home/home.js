@@ -1,9 +1,12 @@
 angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces', 'ionic'])
-.controller('HomeCtrl', function($scope, $state, $cordovaCamera, $ionicModal, $ionicTabsDelegate, ngGPlacesAPI, GeolocationService, TwitterService) {
+.controller('HomeCtrl', function($scope, $state, $cordovaCamera, $ionicModal, $ionicTabsDelegate, $ionicHistory, $ionicLoading, $timeout, ngGPlacesAPI, GeolocationService, TwitterService) {
   $scope.$state = $state;
 
   // Set default tab on view load
   $scope.$on('$ionicView.enter', function() {
+    // Clear history on entering so we don't get weird back button issues
+    $ionicHistory.clearHistory();
+
     if ($scope.tab == 'map') {
       $ionicTabsDelegate.select(1);
       $scope.tab = 'map';
@@ -13,8 +16,10 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces', 'ionic'])
       $scope.tab = 'cards';
     }
   });
+  
   $scope.changeView = function() {
     $scope.tab = ($scope.tab == 'cards') ? 'map' : 'cards';
+    $scope.$broadcast('changedView');
   };
   
 
@@ -55,8 +60,12 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces', 'ionic'])
     };
     $cordovaCamera.getPicture(options)
     .then(function(img) {
+      $ionicLoading.show({
+        template: "Getting location..."
+      });
       GeolocationService.places()
       .then(function(places) {
+        $timeout(function(){$ionicLoading.hide();},100);
         var obj = {
           card: {
             type: 'image',
@@ -92,8 +101,12 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces', 'ionic'])
     });
   };
   $scope.saveNote = function() {
+    $ionicLoading.show({
+      template: "Getting location..."
+    });
     GeolocationService.places()
     .then(function(places) {
+      $timeout(function(){$ionicLoading.hide();},100);
       var obj = {
         card: {
           type: 'note',
@@ -129,10 +142,13 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces', 'ionic'])
     });
   };
   $scope.postTweet = function() {
+    $ionicLoading.show({
+      template: "Getting location..."
+    });
     TwitterService.postTweet($scope.twitterModal.tweet, function(res) {
-      console.log(res);
       GeolocationService.places()
       .then(function(places) {
+        $timeout(function(){$ionicLoading.hide();},100);
         var obj = {
           card: {
             type: 'tweet',
@@ -160,8 +176,12 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces', 'ionic'])
 
   // Check-in functionality
   $scope.checkin = function() {
+    $ionicLoading.show({
+      template: "Getting location..."
+    });
     GeolocationService.places()
     .then(function(places) {
+      $timeout(function(){$ionicLoading.hide();},100);
       var obj = {
         card: {
           type: 'checkin',

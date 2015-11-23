@@ -1,16 +1,27 @@
 angular.module('service.cards', [])
-.service('CardsService', function($rootScope, $q) {
+.service('CardsService', function($rootScope, $q, $state) {
   var ParseCard = Parse.Object.extend("Card");
+
+  var currentUser = Parse.User.current();
+  var userId;
+
+  if (currentUser !== null) {
+    userId = Parse.User.current().getUsername();
+  }
 
   var self = {
     cards: [],
 
+    refreshId: function() {
+      userId = Parse.User.current().getUsername();
+    },
+
+    // Update cards array with current trip cards
     update: function() {
       var defer = $q.defer();
 
       var query = new Parse.Query(ParseCard);
-      // Should be retrieved from local storage
-      query.equalTo('userId', '1').equalTo('tripId', 'ZmztBpfCsz');
+      query.equalTo('userId', userId).equalTo('tripId', window.localStorage.getItem('trip_id'));
       query.ascending("createdAt");
       query.find({
         success: function(results) {
@@ -27,17 +38,41 @@ angular.module('service.cards', [])
         }
       });
       return defer.promise;
+    },
+
+    // Get cards for a specific trip
+    getTrip: function(trip_id) {
+      var defer = $q.defer();
+
+      var query = new Parse.Query(ParseCard);
+      query.equalTo('userId', userId).equalTo('tripId', trip_id);
+      query.ascending("createdAt");
+      query.find({
+        success: function(results) {
+          var ret = [];
+          for(i = 0; i < results.length; i++) {
+            ret.push(results[i].attributes);
+            ret[i].createdAt = results[i].createdAt;
+          }
+          defer.resolve(ret);
+        },
+        error: function(err) {
+          console.error(err);
+          defer.reject(err);
+        }
+      });
+      return defer.promise;
     }
   };
 
+  // Save new cards to Parse when they are created
   $rootScope.$on('newCard', function(event, obj) {
     self.cards.unshift(obj);
 
     var card = new ParseCard();
 
-    // Both of these values should be retrieved from local storage
-    card.set('userId', '1');
-    card.set('tripId', '1');
+    card.set('userId', userId);
+    card.set('tripId', window.localStorage.getItem('trip_id'));
 
     card.set('type', obj.type);
     card.set('locationName', obj.locationName);
@@ -47,7 +82,7 @@ angular.module('service.cards', [])
     card.set('location', loc);
 
     // Save the new card to Parse (commented out for dev)
-    /*card.save(null, {
+    card.save(null, {
       success: function(card) {
         console.log(card);
       },
@@ -55,7 +90,7 @@ angular.module('service.cards', [])
         console.error(error);
         console.log(card);
       }
-    });*/
+    });
     
   });
 
