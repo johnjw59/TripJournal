@@ -1,5 +1,6 @@
 angular.module('page.login', [])
 .controller("LoginCtrl", function($scope, $state, $ionicLoading) {
+.controller("LoginCtrl", function($scope, $state, $ionicLoading, CardsService) {
   $scope.login = function() {
     $ionicLoading.show({
       template: 'Logging in...'
@@ -17,7 +18,9 @@ angular.module('page.login', [])
         query.select('objectId');
         query.first({
           success: function(ret) {
+            CardsService.refreshId();
             $ionicLoading.hide();
+
             if (typeof ret === 'undefined') {
               $state.go('new-trip');
             } else {
@@ -48,7 +51,9 @@ angular.module('page.login', [])
 
     user.signUp(null, {
       success: function(user) {
+        CardsService.refreshId();
         $ionicLoading.hide();
+        
         $state.go('new-trip');
       },
       error: function(user, error) {

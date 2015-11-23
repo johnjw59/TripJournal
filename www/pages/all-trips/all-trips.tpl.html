@@ -7,6 +7,7 @@
     </div>
     <div class="list">
       <div class="item item-button-right" ng-repeat="trip in trips" ng-if="trip.attributes.hasOwnProperty('end')">
+      <div class="item item-button-right" ng-repeat="trip in trips">
         {{trip.attributes.start | date:'mediumDate'}} - {{trip.attributes.end | date:'mediumDate'}}
         <button class="button button-calm" ng-click="$state.go('trip', {id: '{{trip.id}}'});">View</button>
       </div>

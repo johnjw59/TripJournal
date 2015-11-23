@@ -21,6 +21,7 @@ angular.module('page.allTrips', [])
   
   var query = new Parse.Query(ParseTrip);
   query.equalTo('userId', userId);
+  query.exists('end');
   query.descending("start");
   query.find({
     success: function(ret) {
