@@ -1,7 +1,5 @@
 angular.module('app', ['ionic', 'ngCordova', 'ngTwitter', 'ngResource', 'service.geolocation', 'service.cards', 'page.login', 'page.home', 'page.setting', 'page.newTrip', 'page.allTrips', 'page.trip', 'TwitterService'])
 .run(function($ionicPlatform, TwitterService, GeolocationService, CardsService) {
-  Parse.initialize("MY4KyWo5RUK2yX6GIFEambS54Mv8X4EXm7PIoSBs","qFqeFSzjVHxEpOKYWKjuOHYs42PhkzWWwVSEhaqE");
-  
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -22,6 +20,8 @@ angular.module('app', ['ionic', 'ngCordova', 'ngTwitter', 'ngResource', 'service
 
 // Route to different page templates
 .config(function($stateProvider, $urlRouterProvider) {
+  Parse.initialize("MY4KyWo5RUK2yX6GIFEambS54Mv8X4EXm7PIoSBs","qFqeFSzjVHxEpOKYWKjuOHYs42PhkzWWwVSEhaqE");
+  
   $stateProvider
   .state('login', {
     url: '/login',
@@ -58,17 +58,14 @@ angular.module('app', ['ionic', 'ngCordova', 'ngTwitter', 'ngResource', 'service
     templateUrl: 'pages/trip/trip.tpl.html',
     controller: 'TripCtrl'
   });
-  /*
-    if (no authentication token) {
-      $urlRouterProvider.other('/login');
-    } else if () {
+
+  if (Parse.User.current()) {
+    if (window.localStorage.getItem('trip_id') === null) {
+      $urlRouterProvider.otherwise('/new-trip');
+    } else {
       $urlRouterProvider.otherwise('/home');
     }
-  */
-  if (window.localStorage.getItem('trip_id') === null) {
-    $urlRouterProvider.otherwise('/new-trip');
   } else {
-    $urlRouterProvider.otherwise('/home');
+    $urlRouterProvider.otherwise('/login');
   }
-  
 });

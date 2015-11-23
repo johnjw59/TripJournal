@@ -1,14 +1,28 @@
 angular.module('page.login', [])
-.controller("LoginCtrl", function($scope, $state, $cordovaOauth) {
+.controller("LoginCtrl", function($scope, $state) {
   $scope.login = function() {
-    $cordovaOauth.google("1011840488483-5svsjfnrr9von30eu147lp74qrvbef4p.apps.googleusercontent.com", ["https://www.googleapis.com/auth/urlshortener", "https://www.googleapis.com/auth/userinfo.email"])
-    .then(function(result) {
-        console.log(JSON.stringify(result));
-        // save result in local storage
-        // if this is a new user, save it to parse (maybe do it anyway and let parse figure out what happens the user already exists?)
-        $state.go('home');
-    }, function(err) {
-        window.alert(err);
+    Parse.User.logIn($scope.email, $scope.password, {
+      success: function(user) {
+        console.log("Login success!");
+      },
+      error: function(user, error) {
+        console.log("Error logging in with code " + error.code);
+        alert("Oops: " + error.message + ". Please try again!");
+      }
+    });
+  };
+  $scope.register = function() {
+    var user = new Parse.User();
+    user.set("username", $scope.email);
+    user.set("password", $scope.password);
+
+    user.signUp(null, {
+      success: function(user) {
+        console.log("Registration success!");
+      },
+      error: function(user, error) {
+        alert("Error: " + error.code + " " + error.message);
+      }
     });
   };
 });
