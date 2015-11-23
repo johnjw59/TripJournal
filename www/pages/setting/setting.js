@@ -87,7 +87,7 @@ angular.module('page.setting', [])
     if (Parse.User.current()) {
       var currentSession = Parse.Session.current()
       .then(function(session) {
-        var ref = window.open('https://gisttortrip.parseapp.com/authorize?sessionId=' + session.id, '_system', 'location=yes');
+        var ref = window.open('https://tripjournalubc.parseapp.com/authorize?sessionId=' + session.id, '_system', 'location=yes');
         ref.addEventListener('loaderror', function(error) {
           console.log(error);
         })

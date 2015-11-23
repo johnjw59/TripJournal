@@ -33,7 +33,7 @@ var app = express();
 var instagramClientId = '3614fce7ef8c43b2bafce9927bdbc178';
 var instagramClientSecret = 'b95638dd8db94dbca4abaf5a716c6369';
 
-var insta_redirect_uri = 'https://gisttortrip.parseapp.com/oauthCallback';
+var insta_redirect_uri = 'https://tripjournalubc.parseapp.com/oauthCallback';
 
 var instagramRedirectEndpoint = 'https://api.instagram.com/oauth/authorize/?';
 instagramRedirectEndpoint += 'client_id=' + instagramClientId;
