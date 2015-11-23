@@ -18,19 +18,10 @@ angular.module('page.newTrip', [])
       template: 'Setting up your trip...'
     });
 
-    var currentUser = Parse.User.current();
-    var userId;
-
-    if (currentUser) {
-      userId = currentUser.getUsername();
-    } else {
-      $state.go('login');
-    }
-
     var ParseTrip = Parse.Object.extend("Trip");
 
     var trip = new ParseTrip();
-    trip.set('userId', userId);
+    trip.set('userId', Parse.User.current().id);
     trip.set('start', new Date());
 
     trip.save(null, {

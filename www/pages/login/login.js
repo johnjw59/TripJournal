@@ -6,7 +6,7 @@ angular.module('page.login', [])
     });
     Parse.User.logIn($scope.email, $scope.password, {
       success: function(user) {
-        var userId = user.getUsername();
+        var userId = user.id;
 
         var ParseTrip = Parse.Object.extend("Trip");
   

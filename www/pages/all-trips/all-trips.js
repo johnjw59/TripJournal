@@ -8,19 +8,10 @@ angular.module('page.allTrips', [])
     noBackDrop: true
   });
 
-  var currentUser = Parse.User.current();
-  var userId;
-
-  if (currentUser) {
-    userId = currentUser.getUsername();
-  } else {
-    $state.go('login');
-  }
-
   var ParseTrip = Parse.Object.extend("Trip");
   
   var query = new Parse.Query(ParseTrip);
-  query.equalTo('userId', userId);
+  query.equalTo('userId', Parse.User.current().id);
   query.exists('end');
   query.descending("start");
   query.find({

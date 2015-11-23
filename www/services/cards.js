@@ -6,14 +6,14 @@ angular.module('service.cards', [])
   var userId;
 
   if (currentUser !== null) {
-    userId = Parse.User.current().getUsername();
+    userId = Parse.User.current().id;
   }
 
   var self = {
     cards: [],
 
     refreshId: function() {
-      userId = Parse.User.current().getUsername();
+      userId = Parse.User.current().id;
     },
 
     // Update cards array with current trip cards
