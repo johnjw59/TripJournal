@@ -82,5 +82,38 @@ angular.module('page.setting', [])
     }
     console.log($scope.user);
   }
+
+  $scope.getPhotos = function() {
+    Parse.Cloud.run('getInstagramPhotos', {}, {
+      success: function(response) {
+        response.data.forEach(function(item) {
+          var location;
+          if (item.location) {
+            location = {
+              latitude: item.latitude,
+              longitude: item.longitude
+            }
+          } else {
+            location = {
+              latitude: '',
+              longitude: ''
+            };
+          }
+          var obj = {
+            type: 'instagram',
+            data: {img_url: item.images.standard_resolution.url},
+            createdAt: new Date(item.caption.created_time),
+            location: location
+          };
+          $scope.$emit('newCard', obj);
+          console.log(response);
+        });
+        
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
+  }
   
 });

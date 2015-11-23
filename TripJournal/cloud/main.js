@@ -150,6 +150,7 @@ app.get('/oauthCallback', function(req, res) {
      * Process the response from Instagram
      */
     var instagramData = access.data;
+    console.log(instagramData);
     if (instagramData && instagramData.access_token) {
       // Instagram returns user info with access token so we don't need
       // another request.
@@ -235,7 +236,47 @@ Parse.Cloud.define('isInstagramAuth', function(request, response) {
   }, function(error) {
     response.error(error);
   });
-})
+});
+
+Parse.Cloud.define('getInstagramPhotos', function(request, response) {
+  if (!request.user) {
+    return response.error('Must be logged in.');
+  }
+  return getInstagramAccessTokenFromParse(request.user)
+  .then(function(token) {
+    return Parse.Cloud.httpRequest({
+      method: 'GET',
+      url: 'https://api.instagram.com/v1/users/self/media/recent/',
+      params: {
+        access_token : token
+      },
+      headers: {
+        'User-Agent': 'Parse.com Cloud Code'
+      }
+    }).then(function(httpResponse) {
+      response.success(httpResponse.data);
+    }, function(httpResponse) {
+      console.error(httpResponse);
+      response.error('Request failed with response code ' + httpResponse.status);
+    });
+  })
+});
+
+var getInstagramAccessTokenFromParse = function(user) {
+  var query = new Parse.Query(TokenStorage);
+  query.equalTo('user', user);
+  query.ascending('createdAt');
+  return query.first({ useMasterKey: true })
+  .then(function(tokenData) {
+    if (!tokenData) {
+      return Parse.Promise.error('No Instagram data found.');
+    }
+    console.log(tokenData.get('instagramAccessToken'));
+    return Parse.Promise.as(tokenData.get('instagramAccessToken'));
+  }, function(error) {
+    return Parse.Promise.error(error);
+  });
+};
 
 /**
  * This function is called when Instagram redirects the user back after
