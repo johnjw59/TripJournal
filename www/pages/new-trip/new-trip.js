@@ -17,10 +17,21 @@ angular.module('page.newTrip', [])
     $ionicLoading.show({
       template: 'Setting up your trip...'
     });
+
+    var currentUser = Parse.User.current();
+    var userId;
+
+    if (currentUser) {
+      userId = currentUser.getUsername();
+      console.log("Current user is " + userId);
+    } else {
+      $state.go('login');
+    }
+
     var ParseTrip = Parse.Object.extend("Trip");
 
     var trip = new ParseTrip();
-    trip.set('userId', Parse.User.current().getUsername());
+    trip.set('userId', userId);
     trip.set('start', new Date());
 
     trip.save(null, {

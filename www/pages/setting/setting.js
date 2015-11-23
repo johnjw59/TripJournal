@@ -60,8 +60,8 @@ angular.module('page.setting', [])
     }
   };
 
-  // $scope.logOut = function() {
-  //   Parse.User.logOut();
-  //   $state.go('login');
-  // }
+  $scope.logOut = function() {
+    Parse.User.logOut();
+    $state.go('login');
+  }
 });

@@ -1,7 +1,16 @@
 angular.module('service.cards', [])
-.service('CardsService', function($rootScope, $q) {
+.service('CardsService', function($rootScope, $q, $state) {
   var ParseCard = Parse.Object.extend("Card");
-  var userId = Parse.User.current().getUsername();
+
+  var currentUser = Parse.User.current();
+  var userId;
+
+  if (currentUser) {
+    userId = currentUser.getUsername();
+    console.log("Current user is " + userId);
+  } else {
+    $state.go('login');
+  }
 
   var self = {
     cards: [],
