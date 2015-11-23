@@ -13,5 +13,18 @@
       <button ng-if="showLogin" class="button button-balanced" ng-click="authenticateTwitter()">Login</button>
       <button ng-if="!showLogin" class="button button-stable" disabled>Logged in</button>
     </div>
+    <div class="item item-button-right">
+      Instagram Authentication
+      <button class="button button-balanced" ng-click="authenticateInstagram()">
+        Login
+      </button>
+    </div>
+    <p>Instagram user: {{instagramUser}}</p>
+    <div class="item item-button-right">
+      Log out
+      <button class="button button-balanced" ng-click="logout()">
+        Log out
+      </button>
+    </div>
   </ion-content>
 </ion-view>
