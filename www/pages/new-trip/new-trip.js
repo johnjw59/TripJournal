@@ -17,10 +17,20 @@ angular.module('page.newTrip', [])
     $ionicLoading.show({
       template: 'Setting up your trip...'
     });
+
+    var currentUser = Parse.User.current();
+    var userId;
+
+    if (currentUser) {
+      userId = currentUser.getUsername();
+    } else {
+      $state.go('login');
+    }
+
     var ParseTrip = Parse.Object.extend("Trip");
 
     var trip = new ParseTrip();
-    trip.set('userId', '1'); // Should get from local storage
+    trip.set('userId', userId);
     trip.set('start', new Date());
 
     trip.save(null, {
