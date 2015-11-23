@@ -39,7 +39,7 @@ angular.module('page.login', [])
   };
 
   $scope.register = function() {
-    $ionicLoading({
+    $ionicLoading.show({
       template: 'Creating your account...'
     });
     var user = new Parse.User();
@@ -48,7 +48,7 @@ angular.module('page.login', [])
 
     user.signUp(null, {
       success: function(user) {
-        $ionicLoading.show();
+        $ionicLoading.hide();
         $state.go('new-trip');
       },
       error: function(user, error) {
