@@ -1,7 +1,7 @@
 <map center="[{{center.lat}}, {{center.lng}}]" zoom-control="false" style="height: 100%;">
   <marker position="[{{userLoc.lat}}, {{userLoc.lng}}]" icon="{{userIcon}}"></marker>
 
-  <marker ng-repeat="marker in markers" position="[{{marker.location.latitude}}, {{marker.location.longitude}}]"></marker>
+  <marker on-click="detail(event, marker)" ng-repeat="marker in markers" position="[{{marker.location.latitude}}, {{marker.location.longitude}}]"></marker>
 
   <shape name="polyline" path="{{path}}" geodesic="true" stroke-color="#FF0000" stroke-opacity="1.0" stroke-weight="2"></shape>
 </map>

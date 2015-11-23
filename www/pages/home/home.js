@@ -197,7 +197,6 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces', 'ionic'])
     });
   };
 
-
   // General modal functions
   $scope.closeModal = function() {
     $scope.placesModal.hide();
