@@ -1,6 +1,7 @@
 angular.module('service.cards', [])
 .service('CardsService', function($rootScope, $q) {
   var ParseCard = Parse.Object.extend("Card");
+  var userId = Parse.User.current().getUsername();
 
   var self = {
     cards: [],
@@ -10,8 +11,7 @@ angular.module('service.cards', [])
       var defer = $q.defer();
 
       var query = new Parse.Query(ParseCard);
-      // Should be retrieved from local storage
-      query.equalTo('userId', '1').equalTo('tripId', window.localStorage.getItem('trip_id'));
+      query.equalTo('userId', userId).equalTo('tripId', window.localStorage.getItem('trip_id'));
       query.ascending("createdAt");
       query.find({
         success: function(results) {
@@ -35,8 +35,7 @@ angular.module('service.cards', [])
       var defer = $q.defer();
 
       var query = new Parse.Query(ParseCard);
-      // Should be retrieved from local storage
-      query.equalTo('userId', '1').equalTo('tripId', trip_id);
+      query.equalTo('userId', userId).equalTo('tripId', trip_id);
       query.ascending("createdAt");
       query.find({
         success: function(results) {
@@ -62,8 +61,7 @@ angular.module('service.cards', [])
 
     var card = new ParseCard();
 
-    // Both of these values should be retrieved from local storage
-    card.set('userId', '1');
+    card.set('userId', userId);
     card.set('tripId', window.localStorage.getItem('trip_id'));
 
     card.set('type', obj.type);

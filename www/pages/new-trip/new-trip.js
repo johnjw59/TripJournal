@@ -20,7 +20,7 @@ angular.module('page.newTrip', [])
     var ParseTrip = Parse.Object.extend("Trip");
 
     var trip = new ParseTrip();
-    trip.set('userId', '1'); // Should get from local storage
+    trip.set('userId', Parse.User.current().getUsername());
     trip.set('start', new Date());
 
     trip.save(null, {

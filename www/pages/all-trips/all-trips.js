@@ -11,7 +11,7 @@ angular.module('page.allTrips', [])
   var ParseTrip = Parse.Object.extend("Trip");
   
   var query = new Parse.Query(ParseTrip);
-  query.equalTo('userId', '1'); // Should be retrieved from local storage
+  query.equalTo('userId', Parse.User.current().getUsername());
   query.descending("start");
   query.find({
     success: function(ret) {
