@@ -1,5 +1,4 @@
 angular.module('page.login', [])
-.controller("LoginCtrl", function($scope, $state, $ionicLoading) {
 .controller("LoginCtrl", function($scope, $state, $ionicLoading, CardsService) {
   $scope.login = function() {
     $ionicLoading.show({
