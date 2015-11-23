@@ -7,7 +7,6 @@ angular.module('service.cards', [])
 
   if (currentUser) {
     userId = currentUser.getUsername();
-    console.log("Current user is " + userId);
   } else {
     $state.go('login');
   }

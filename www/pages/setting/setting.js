@@ -59,9 +59,9 @@ angular.module('page.setting', [])
       });
     }
   };
-
-  $scope.logOut = function() {
-    Parse.User.logOut();
-    $state.go('login');
-  }
+  // enable for debugging
+  // $scope.logOut = function() {
+  //   Parse.User.logOut();
+  //   $state.go('login');
+  // }
 });

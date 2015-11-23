@@ -3,12 +3,25 @@ angular.module('page.login', [])
   $scope.login = function() {
     Parse.User.logIn($scope.email, $scope.password, {
       success: function(user) {
-        console.log("Login success!");
-        if (window.localStorage.getItem('trip_id') === null) {
-          $state.go('new-trip');
-        } else {
-          $state.go('home');
-        }
+        var userId = user.getUsername();
+        console.log("Log in successful for user " + userId);
+
+        var ParseTrip = Parse.Object.extend("Trip");
+  
+        //query user's trip ids and check for in-progress trip
+        var query = new Parse.Query(ParseTrip);
+        query.equalTo('userId', userId);
+        query.doesNotExist('end');
+        query.select('objectId');
+        query.first({
+          success: function(ret) {
+            window.localStorage.setItem('trip_id', ret.id);
+            $state.go('home');
+          },
+          error: function(err) {
+            $state.go('new-trip');
+          }
+        });
       },
       error: function(user, error) {
         console.log("Error logging in with code " + error.code);
