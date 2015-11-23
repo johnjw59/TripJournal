@@ -4,6 +4,11 @@ angular.module('page.login', [])
     Parse.User.logIn($scope.email, $scope.password, {
       success: function(user) {
         console.log("Login success!");
+        if (window.localStorage.getItem('trip_id') === null) {
+          $state.go('new-trip');
+        } else {
+          $state.go('home');
+        }
       },
       error: function(user, error) {
         console.log("Error logging in with code " + error.code);
@@ -19,9 +24,11 @@ angular.module('page.login', [])
     user.signUp(null, {
       success: function(user) {
         console.log("Registration success!");
+        $state.go('new-trip');
       },
       error: function(user, error) {
-        alert("Error: " + error.code + " " + error.message);
+        console.log("Error registering with code " + error.code);
+        alert("Oops: " + error.message + ". Please try again!");
       }
     });
   };
