@@ -104,10 +104,10 @@ function uploadImageAndSave(card, imageData, count) {
     card.set('data', imageData);
     saveCard(card);
   }, function(error) {
-    console.log('error uploading picture, retry ' + count);
+    console.error('error uploading picture, retry ' + count);
     if (count < 4) {
       uploadImageAndSave(card, imageData, count++);
-    };
+    }
   });
 }
 
