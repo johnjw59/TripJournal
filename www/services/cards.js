@@ -74,9 +74,26 @@ angular.module('service.cards', [])
     card.set('userId', userId);
     card.set('tripId', window.localStorage.getItem('trip_id'));
 
-    card.set('type', obj.type);
+    var type = obj.type;
+    card.set('type', type);
     card.set('locationName', obj.locationName);
-    card.set('data', obj.data);
+    
+    // save picture to Parse cloud
+    if (type == 'image') {
+      var imageData = obj.data;
+      var imageFile = new Parse.File("image", { base64: imageData.img_url });
+      
+      imageFile.save().then(function() {
+        imageData.img_url = imageFile.url();      
+        card.set('data', imageData);
+
+        console.log('image url: ' + imageData.img_url);
+      }, function(error) {
+        console.error(error);
+      });      
+    } else {;
+      card.set('data', obj.data);
+    }
 
     var loc = new Parse.GeoPoint({latitude: obj.location.latitude, longitude: obj.location.longitude});
     card.set('location', loc);
@@ -91,7 +108,6 @@ angular.module('service.cards', [])
         console.log(card);
       }
     });
-    
   });
 
   return self;

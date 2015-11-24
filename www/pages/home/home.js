@@ -55,6 +55,7 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces', 'ionic'])
     var options = {
       quality: 75,
       encodingType: Camera.EncodingType.JPEG,
+      destinationType: Camera.DestinationType.DATA_URL,
       correctOrientation: true,
       saveToPhotoAlbum: false
     };
