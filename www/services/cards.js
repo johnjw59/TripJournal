@@ -76,39 +76,46 @@ angular.module('service.cards', [])
 
     var type = obj.type;
     card.set('type', type);
-    card.set('locationName', obj.locationName);
     
-    // save picture to Parse cloud
-    if (type == 'image') {
-      var imageData = obj.data;
-      var imageFile = new Parse.File("image", { base64: imageData.img_url });
-      
-      imageFile.save().then(function() {
-        imageData.img_url = imageFile.url();      
-        card.set('data', imageData);
-
-        console.log('image url: ' + imageData.img_url);
-      }, function(error) {
-        console.error(error);
-      });      
-    } else {;
-      card.set('data', obj.data);
-    }
-
+    // set location details
     var loc = new Parse.GeoPoint({latitude: obj.location.latitude, longitude: obj.location.longitude});
     card.set('location', loc);
+    card.set('locationName', obj.locationName);
 
-    // Save the new card to Parse (commented out for dev)
-    card.save(null, {
-      success: function(card) {
-        console.log(card);
-      },
-      error: function(card, error) {
-        console.error(error);
-        console.log(card);
-      }
-    });
+    // if card is a picture, upload the image to Parse cloud and then save the card
+    if (type == 'image') {
+      uploadImageAndSave(card, obj.data, 1);
+    } else {
+      card.set('data', obj.data);
+      saveCard(card);
+    }
   });
 
   return self;
 });
+
+function uploadImageAndSave(card, imageData, count) {
+  var imageFile = new Parse.File("image", { base64: imageData.img_url });
+  imageFile.save().then(function() {
+    imageData.img_url = imageFile.url();      
+    card.set('data', imageData);
+    saveCard(card);
+  }, function(error) {
+    console.log('error uploading picture, retry ' + count);
+    if (count < 4) {
+      uploadImageAndSave(card, imageData, count++);
+    };
+  });
+}
+
+function saveCard(card) {
+  card.save(null, {
+    success: function(card) {
+      console.log('saved card: ' + card);
+    },
+    error: function(card, error) {
+      console.error(error);
+      console.log(card);
+    }
+  });
+}
