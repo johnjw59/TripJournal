@@ -28,6 +28,10 @@
     <img ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{card.location.latitude}},{{card.location.longitude}}&amp;zoom=17&amp;scale=2&amp;size=600x300&amp;maptype=roadmap&amp;markers={{card.location.latitude}},{{card.location.longitude}}&amp;key=AIzaSyCKi4vyRxY18xmARHs_ipOo1CXVHTd5H9I" />
   </div>
 
+  <div ng-switch-when="instagram" class="item item-image">
+    <img ng-src="{{card.data.img_url}}" />
+  </div>
+
   <div class="item card-info">
     <div class="row">
       <div class="col">{{card.locationName}}</div>
