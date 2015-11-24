@@ -67,14 +67,17 @@ angular.module('service.cards', [])
 
   // Save new cards to Parse when they are created
   $rootScope.$on('newCard', function(event, obj) {
+    var type = obj.type;
+    // save a copy of the data
+    var data = obj.data;
+    if (type == 'image') {
+      obj.data.img_url = 'data:image/jpeg;base64,' + data.img_url;
+    }
     self.cards.unshift(obj);
 
     var card = new ParseCard();
-
     card.set('userId', userId);
     card.set('tripId', window.localStorage.getItem('trip_id'));
-
-    var type = obj.type;
     card.set('type', type);
     
     // set location details
@@ -84,9 +87,9 @@ angular.module('service.cards', [])
 
     // if card is a picture, upload the image to Parse cloud and then save the card
     if (type == 'image') {
-      uploadImageAndSave(card, obj.data, 1);
+      uploadImageAndSave(card, data, 1);
     } else {
-      card.set('data', obj.data);
+      card.set('data', data);
       saveCard(card);
     }
   });
@@ -97,7 +100,7 @@ angular.module('service.cards', [])
 function uploadImageAndSave(card, imageData, count) {
   var imageFile = new Parse.File("image", { base64: imageData.img_url });
   imageFile.save().then(function() {
-    imageData.img_url = imageFile.url();      
+    imageData.img_url = imageFile.url();
     card.set('data', imageData);
     saveCard(card);
   }, function(error) {
