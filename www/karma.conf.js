@@ -26,6 +26,7 @@ module.exports = function(config) {
     'lib/parse-sdk/lib/parse.min.js',
     'lib/ngmap/build/scripts/ng-map.min.js',
     'lib/angularjs-google-places/dist/angularjs-google-places.min.js',
+    'lib/angularjs-slider/dist/rzslider.js',
 
     //App code
     'app.js',
