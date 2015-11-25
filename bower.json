@@ -13,7 +13,8 @@
     "angular-resource": "~1.4.7",
     "ng-twitter-api": "~0.1.5",
     "parse-sdk": "~v1.4.2",
-    "angular-mocks": "1.4.3"
+    "angular-mocks": "1.4.3",
+    "angularjs-slider": "~2.0.0"
   },
   "resolutions": {
     "angular": "~1.4.x"
