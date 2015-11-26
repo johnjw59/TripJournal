@@ -1,23 +1,16 @@
 angular.module('service.cards', [])
-.service('CardsService', function($rootScope, $q, $state) {
+.service('CardsService', function($rootScope, $q, $state, $location) {
   var ParseCard = Parse.Object.extend("Card");
-
-  var currentUser = Parse.User.current();
-  var userId;
-
-  if (currentUser !== null) {
-    userId = Parse.User.current().getUsername();
-  }
 
   var self = {
     cards: [],
 
     // Get cards for a specific trip
-    getTrip: function() {
+    update: function() {
       var defer = $q.defer();
 
       var query = new Parse.Query(ParseCard);
-      query.equalTo('userId', 'tripjournalapp@gmail.com').equalTo('tripId', 'ZmztBpfCsz');
+      query.equalTo('tripId', $location.search().id);
       query.ascending("createdAt");
       query.find({
         success: function(results) {

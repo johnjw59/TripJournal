@@ -18,14 +18,14 @@ angular.module('app', ['ionic', 'ngResource', 'service.cards', 'page.home'])
   
   $stateProvider
   .state('home', {
-    url: '/home',
+    url: '/',
     templateUrl: 'pages/home/home.tpl.html',
     controller: 'HomeCtrl',
     resolve: {
       cards: function(CardsService) {
-        return CardsService.getTrip(/* trip id from url */);
+        return CardsService.update();
       }
     }
   });
-  $urlRouterProvider.otherwise('/home');
+  $urlRouterProvider.otherwise('/');
 });
