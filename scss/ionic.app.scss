@@ -29,6 +29,12 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
   text-align: center;
 }
 
+.center-content {
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .tabs .tab-color-light {
   color: $light !important;
 }
