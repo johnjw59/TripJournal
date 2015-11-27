@@ -1,5 +1,7 @@
 angular.module('app', ['ionic', 'ngResource', 'service.cards', 'page.home'])
-.run(function($ionicPlatform, CardsService, $state) {
+.run(function($ionicPlatform) {
+  Parse.initialize("MY4KyWo5RUK2yX6GIFEambS54Mv8X4EXm7PIoSBs","qFqeFSzjVHxEpOKYWKjuOHYs42PhkzWWwVSEhaqE");
+
   $ionicPlatform.ready(function() {
     if(window.StatusBar) {
       StatusBar.styleDefault();
@@ -13,17 +15,19 @@ angular.module('app', ['ionic', 'ngResource', 'service.cards', 'page.home'])
 })
 
 // Route to different page templates
-.config(function($stateProvider, $urlRouterProvider) {
-  Parse.initialize("MY4KyWo5RUK2yX6GIFEambS54Mv8X4EXm7PIoSBs","qFqeFSzjVHxEpOKYWKjuOHYs42PhkzWWwVSEhaqE");
-  
+.config(function($stateProvider, $urlRouterProvider) {  
   $stateProvider
-  .state('home', {
+  .state('landing', {
     url: '/',
+    templateUrl: 'pages/landing/landing.tpl.html'
+  })
+  .state('home', {
+    url: '/:userId/:tripId',
     templateUrl: 'pages/home/home.tpl.html',
     controller: 'HomeCtrl',
     resolve: {
-      cards: function(CardsService) {
-        return CardsService.update();
+      cards: function($stateParams, CardsService) {
+        return CardsService.update($stateParams.userId, $stateParams.tripId);
       }
     }
   });
