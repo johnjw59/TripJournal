@@ -1,5 +1,5 @@
 angular.module('page.trip', ['tripCards', 'mapview', 'ngMap'])
-.controller("TripCtrl", function($scope, $stateParams, $ionicLoading, $ionicTabsDelegate, CardsService, $timeout) {
+.controller("TripCtrl", function($scope, $stateParams, $ionicLoading, $ionicTabsDelegate, $ionicPopup, CardsService, $timeout, $cordovaClipboard) {
   // Set default tab on view load
   $scope.$on('$ionicView.enter', function() {
     if ($scope.tab == 'map') {

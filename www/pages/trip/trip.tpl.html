@@ -5,6 +5,9 @@
       <ion-tab title="Map" icon-on="ion-ios-navigate" icon-off="ion-ios-navigate-outline" class="tab-color-light" on-deselect="changeView()"></ion-tab>
     </ion-tabs>
   </ion-nav-title>
+  <ion-nav-buttons side="right">
+    <button class="button button-clear" ng-click="shareTrip()">Share Trip</button>
+  </ion-nav-buttons>
 
   <div ng-show="tab == 'cards'">
     <ion-content class="has-header">

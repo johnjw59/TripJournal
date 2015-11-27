@@ -1,5 +1,5 @@
 angular.module('page.setting', [])
-.controller("SettingCtrl", function($scope, $state, $timeout, $ionicPlatform, $ionicHistory, $ionicLoading, $ionicPopup, TwitterService) {
+.controller("SettingCtrl", function($scope, $state, $timeout, $ionicPlatform, $ionicHistory, $ionicLoading, $ionicPopup, $cordovaClipboard, TwitterService) {
   $scope.$state = $state;
 
   // Only show end trip button if I'm on a trip
