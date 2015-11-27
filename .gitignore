@@ -13,8 +13,8 @@ resources/
 .io-config.json
 ionic.project
 
-TripJournal/cloud/public/css
-TripJournal/cloud/public/lib
+parse/public/css
+parse/public/lib
 
 *.DS_Store
 Thumbs.db
