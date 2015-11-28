@@ -45,7 +45,7 @@ angular.module('page.setting', [])
     console.log(trip_url);
     $cordovaClipboard.copy(trip_url)
     .then(function() {
-      var copy_notif = $ionic.Popup.show({
+      var copy_notif = $ionicPopup.show({
         title: 'Link copied to your Clipboard!'
       });
       $timeout(function() {
@@ -53,7 +53,7 @@ angular.module('page.setting', [])
       }, 2000);
     }, function(err) {
       console.error(err);
-      $ionic.Popup.show({
+      $ionicPopup.show({
         title: 'Couldn\'t copy address',
         subTitle: trip_url
       });
