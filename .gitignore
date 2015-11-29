@@ -12,6 +12,7 @@ resources/
 *.swp
 .io-config.json
 ionic.project
+www/coverage/
 
 *.DS_Store
 Thumbs.db
