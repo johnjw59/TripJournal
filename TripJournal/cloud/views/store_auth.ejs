@@ -1,0 +1,13 @@
+<% include head %>
+<p>Saving your GitHub session...</p>
+<script type="text/javascript">
+Parse.User.become('<%= sessionToken %>').then(function (user) {
+  console.log('<%= sessionToken %>');
+  window.location.href='/main';
+},
+function (error) {
+  alert('Login with Instagram Failed.');
+  window.location.href='/';
+});
+</script>
+<% include foot %>

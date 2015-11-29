@@ -1,5 +1,5 @@
-angular.module('app', ['ionic', 'ngCordova', 'ngTwitter', 'ngResource', 'service.geolocation', 'service.cards', 'page.login', 'page.home', 'page.setting', 'page.newTrip', 'page.allTrips', 'page.trip', 'TwitterService'])
-.run(function($ionicPlatform, TwitterService, GeolocationService, CardsService) {
+angular.module('app', ['ionic', 'ngCordova', 'ngTwitter', 'ngResource', 'service.geolocation', 'service.cards', 'page.login', 'page.home', 'page.setting', 'page.newTrip', 'page.allTrips', 'page.trip', 'page.detail', 'TwitterService'])
+.run(function($ionicPlatform, TwitterService, GeolocationService, CardsService, $state) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -10,6 +10,13 @@ angular.module('app', ['ionic', 'ngCordova', 'ngTwitter', 'ngResource', 'service
     
     TwitterService.configure();
     GeolocationService.loc();
+
+    window.handleOpenURL = function(url) {
+      setTimeout(function() {
+        alert("Logged in to Instagram!");
+        $state.go('setting');
+      }, 0);
+    };
   });
 })
 
@@ -57,6 +64,12 @@ angular.module('app', ['ionic', 'ngCordova', 'ngTwitter', 'ngResource', 'service
     url: '/trip?:id',
     templateUrl: 'pages/trip/trip.tpl.html',
     controller: 'TripCtrl'
+  })
+  .state('detail', {
+    url: '/detail',
+    params: {card: {}},
+    templateUrl: 'pages/detail/detail.tpl.html',
+    controller: 'DetailCtrl'
   });
 
   if (Parse.User.current()) {

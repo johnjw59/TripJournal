@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "TripJournal": {
+      "applicationId": "MY4KyWo5RUK2yX6GIFEambS54Mv8X4EXm7PIoSBs"
+    },
+    "_default": {
+      "link": "TripJournal"
+    }
+  }
+}

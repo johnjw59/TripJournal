@@ -53,8 +53,9 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces', 'ionic'])
   // Camera taking functionality
   $scope.takePicture = function() {
     var options = {
-      quality: 75,
+      quality: 50,
       encodingType: Camera.EncodingType.JPEG,
+      destinationType: Camera.DestinationType.DATA_URL,
       correctOrientation: true,
       saveToPhotoAlbum: false
     };
@@ -196,7 +197,6 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces', 'ionic'])
       $scope.openPlaces(obj);
     });
   };
-
 
   // General modal functions
   $scope.closeModal = function() {

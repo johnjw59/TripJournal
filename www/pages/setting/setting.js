@@ -38,11 +38,34 @@ angular.module('page.setting', [])
   };
 
   $scope.showLogin = true;
+  $scope.isInstagramAuth = false;
 
   $ionicPlatform.ready(function() {
     if (TwitterService.isAuthenticated()) {
       $scope.showLogin = false;
       console.log('is Authenticated');
+    }
+    Parse.Cloud.run('isInstagramAuth', {}, {
+      success: function(response) {
+        if (response) {
+          $scope.isInstagramAuth = true;
+        }
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
+  });
+
+  $scope.instagramUser = '';
+
+  Parse.Cloud.run('getInstagramData', {}, {
+    success: function(response) {
+      $scope.instagramUser = response.data.username;
+      $scope.$apply();
+    },
+    error: function(error) {
+      console.log(error);
     }
   });
 
@@ -59,9 +82,70 @@ angular.module('page.setting', [])
       });
     }
   };
+
+  $scope.authenticateInstagram = function() {
+    if (Parse.User.current()) {
+      var currentSession = Parse.Session.current()
+      .then(function(session) {
+        var ref = window.open('https://tripjournalubc.parseapp.com/authorize?sessionId=' + session.id, '_system', 'location=yes');
+        ref.addEventListener('loaderror', function(error) {
+          console.log(error);
+        });
+      });
+    } else {
+      alert('You must be logged in!');
+    }
+  };
+
+  $scope.logout = function() {
+    console.log('logout');
+    Parse.User.logOut();
+    var currentUser = Parse.User.current();
+    if (currentUser) {
+        $scope.user = currentUser;
+    } else {
+        $scope.user = 'no user';
+    }
+    console.log($scope.user);
+  };
+
+  $scope.getPhotos = function() {
+    Parse.Cloud.run('getInstagramPhotos', {}, {
+      success: function(response) {
+        response.data.forEach(function(item) {
+          var location;
+          if (item.location) {
+            location = {
+              latitude: item.latitude,
+              longitude: item.longitude
+            };
+          } else {
+            location = {
+              latitude: '',
+              longitude: ''
+            };
+          }
+          var obj = {
+            type: 'instagram',
+            data: {img_url: item.images.standard_resolution.url},
+            createdAt: new Date(item.caption.created_time),
+            location: location
+          };
+          $scope.$emit('newCard', obj);
+          console.log(response);
+        });
+        
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
+  };
+  
   // enable for debugging
   // $scope.logOut = function() {
   //   Parse.User.logOut();
   //   $state.go('login');
   // }
+
 });

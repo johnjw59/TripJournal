@@ -1,11 +1,41 @@
-angular.module('mapview', ['ngMap']) 
+angular.module('mapview', ['ngMap', 'rzModule']) 
 .directive('mapview', function(GeolocationService, $rootScope, $timeout, CardsService) {
   return {
     scope: {
       markers: '=?markers'
     },
     templateUrl: 'components/mapview/mapview.tpl.html',
+    controller: function($scope, $state) {
+      $scope.detail = function(event, card) {
+        $state.go('detail',{card: card});
+      };
+
+      $scope.range_slider_ticks_values = {
+        minValue: 1,
+        maxValue: 8,
+        options: {
+          ceil: 10, // change to $scope.endDay
+          floor: 0,
+          showTicksValues: true
+        }
+      };
+    },
     link: function($scope) {
+      var id = window.localStorage.getItem('trip_id');
+      var ParseTrip = Parse.Object.extend("Trip");
+      var query = new Parse.Query(ParseTrip);
+      query.get(id, {
+        success: function(trip) {
+          // uncomment later
+          // $scope.endDay = trip.updatedAt-trip.createdAt;
+        },
+        error: function(object, error) {
+          console.log(error);
+        }
+      });
+      $scope.beginDay = 0;
+      $scope.endDay = 10;
+
       var center = null;
 
       $scope.userIcon = {
@@ -17,7 +47,6 @@ angular.module('mapview', ['ngMap'])
         lat: GeolocationService.lat,
         lng: GeolocationService.lon
       };
-
       // If markers aren't provided, use the ones from the service, and center on user
       if (!$scope.hasOwnProperty('markers')) {
         $scope.markers = CardsService.cards;
