@@ -1,4 +1,4 @@
-<map center="[{{center.lat}}, {{center.lng}}]" zoom-control="false" style="height: 90%;">
+<map center="[{{center.lat}}, {{center.lng}}]" zoom-control="false" style="height: 85%;">
   <marker position="[{{userLoc.lat}}, {{userLoc.lng}}]" icon="{{userIcon}}"></marker>
 
   <marker on-click="detail(event, marker)" ng-repeat="marker in markers" position="[{{marker.location.latitude}}, {{marker.location.longitude}}]"></marker>
@@ -11,3 +11,5 @@
   rz-slider-high="slider.maxValue"
   rz-slider-options="slider.options"
   ></rzslider>
+
+<div style="text-align:center; padding-bottom: 5px;">Days</div>
