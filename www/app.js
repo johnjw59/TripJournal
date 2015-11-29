@@ -16,7 +16,7 @@ angular.module('app', ['ionic', 'ngCordova', 'ngTwitter', 'ngResource', 'service
         alert("Logged in to Instagram!");
         $state.go('setting');
       }, 0);
-    }
+    };
   });
 })
 

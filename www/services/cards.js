@@ -22,7 +22,7 @@ angular.module('service.cards', [])
 
       var query = new Parse.Query(ParseCard);
       query.equalTo('userId', userId).equalTo('tripId', window.localStorage.getItem('trip_id'));
-      query.ascending("createdAt");
+      query.descending("createdAt");
       query.find({
         success: function(results) {
           self.cards = [];

@@ -15,7 +15,8 @@ var paths = {
     './www/**/*.js',
     '!./www/karma.conf.js',
     '!./www/lib/**',
-    '!./www/**/*.spec.js'
+    '!./www/**/*.spec.js',
+    '!./www/coverage/**'
   ]
 };
 var bower_packages = [];

@@ -12,6 +12,7 @@ resources/
 *.swp
 .io-config.json
 ionic.project
+www/coverage/
 
 parse/public/css
 parse/public/lib

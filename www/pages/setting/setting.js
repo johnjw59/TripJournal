@@ -114,7 +114,7 @@ angular.module('page.setting', [])
         var ref = window.open('https://tripjournalubc.parseapp.com/authorize?sessionId=' + session.id, '_system', 'location=yes');
         ref.addEventListener('loaderror', function(error) {
           console.log(error);
-        })
+        });
       });
     } else {
       alert('You must be logged in!');
@@ -128,10 +128,10 @@ angular.module('page.setting', [])
     if (currentUser) {
         $scope.user = currentUser;
     } else {
-        $scope.user = 'no user'
+        $scope.user = 'no user';
     }
     console.log($scope.user);
-  }
+  };
 
   $scope.getPhotos = function() {
     Parse.Cloud.run('getInstagramPhotos', {}, {
@@ -142,7 +142,7 @@ angular.module('page.setting', [])
             location = {
               latitude: item.latitude,
               longitude: item.longitude
-            }
+            };
           } else {
             location = {
               latitude: '',
@@ -164,7 +164,7 @@ angular.module('page.setting', [])
         console.log(error);
       }
     });
-  }
+  };
   
   // enable for debugging
   // $scope.logOut = function() {
