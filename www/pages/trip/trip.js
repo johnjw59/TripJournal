@@ -1,4 +1,4 @@
-angular.module('page.trip', ['tripCards', 'mapview', 'ngMap'])
+angular.module('page.trip', ['tripCards', 'mapview', 'ngMap', 'ionic'])
 .controller("TripCtrl", function($scope, $stateParams, $ionicLoading, $ionicTabsDelegate, CardsService, $timeout) {
   // Set default tab on view load
   $scope.$on('$ionicView.enter', function() {
