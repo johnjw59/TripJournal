@@ -1,5 +1,5 @@
 angular.module('page.setting', [])
-.controller("SettingCtrl", function($scope, $state, $timeout, $ionicPlatform, $ionicHistory, $ionicLoading, $ionicPopup, TwitterService) {
+.controller("SettingCtrl", function($scope, $state, $timeout, $ionicPlatform, $ionicHistory, $ionicLoading, $ionicPopup, $cordovaClipboard, TwitterService) {
   $scope.$state = $state;
 
   // Only show end trip button if I'm on a trip
@@ -36,6 +36,30 @@ angular.module('page.setting', [])
       }
     });
   };
+
+  $scope.shareTrip = function() {
+    var trip_url = 'https://tripjournalapp.parseapp.com/#/';
+    trip_url += Parse.User.current().getUsername() + '/';
+    trip_url += window.localStorage.getItem('trip_id');
+
+    console.log(trip_url);
+    $cordovaClipboard.copy(trip_url)
+    .then(function() {
+      var copy_notif = $ionicPopup.show({
+        title: 'Link copied to your Clipboard!'
+      });
+      $timeout(function() {
+        copy_notif.close();
+      }, 2000);
+    }, function(err) {
+      console.error(err);
+      $ionicPopup.show({
+        title: 'Couldn\'t copy address',
+        subTitle: trip_url
+      });
+    });
+  };
+
 
   $scope.showLogin = true;
   $scope.isInstagramAuth = false;

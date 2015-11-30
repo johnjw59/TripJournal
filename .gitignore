@@ -14,5 +14,8 @@ resources/
 ionic.project
 www/coverage/
 
+parse/public/css
+parse/public/lib
+
 *.DS_Store
 Thumbs.db
