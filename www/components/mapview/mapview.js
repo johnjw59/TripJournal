@@ -6,24 +6,28 @@ angular.module('mapview', ['ngMap', 'rzModule'])
       cards: '='
     },
     templateUrl: 'components/mapview/mapview.tpl.html',
-    controller: function($scope, $state) {
+    controller: function($scope, $state, $stateParams) {
       $scope.detail = function(event, card) {
         $state.go('detail',{card: card});
       };
+      $scope.tripId = $stateParams.id;
     },
     link: function($scope) {
       var MS_PER_DAY = 1000 * 60 * 60 * 24;
 
-      var id = window.localStorage.getItem('trip_id');
-
-      var ParseTrip = Parse.Object.extend("Trip");
+      var id = $scope.tripId; // this will be defined for viewing past trips
+      if (typeof id === 'undefined') {
+        // we will do this for viewing current trip
+        id = window.localStorage.getItem('trip_id');
+      }
+       
+      var ParseTrip = Parse.Object.extend('Trip');
       var query = new Parse.Query(ParseTrip);
       $scope.trip = null;
 
       query.get(id, {
         success: function(trip) {
           $scope.trip = trip;
-
           var tripEndDate = trip.updatedAt;
           if (typeof trip.attributes.end != 'undefined') {
             tripEndDate = trip.attributes.end;
@@ -100,7 +104,7 @@ angular.module('mapview', ['ngMap', 'rzModule'])
         $scope.markers = $scope.cards;
       });
 
-      $scope.$on("slideEnded", function() {
+      $scope.$on('slideEnded', function() {
      // user finished sliding a handle 
         $scope.markers = $scope.cards.filter(function(card) {
           var tripStartDate = $scope.trip.attributes.start;

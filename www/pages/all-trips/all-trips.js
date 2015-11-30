@@ -17,12 +17,12 @@ angular.module('page.allTrips', [])
     $state.go('login');
   }
 
-  var ParseTrip = Parse.Object.extend("Trip");
+  var ParseTrip = Parse.Object.extend('Trip');
   
   var query = new Parse.Query(ParseTrip);
   query.equalTo('userId', userId);
   query.exists('end');
-  query.descending("start");
+  query.descending('start');
   query.find({
     success: function(ret) {
       $scope.trips = ret;
