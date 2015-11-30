@@ -1,0 +1,44 @@
+<div class="center-content">
+  <div class="list card" ng-repeat="card in cards" ng-switch="card.type">
+  
+    <div ng-switch-when="image" class="item item-image">
+      <img ng-src="{{card.data.img_url}}" />
+    </div>
+  
+    <div ng-switch-when="note" class="item item-text-wrap">
+      {{card.data.text}}
+    </div>
+  
+    <div ng-switch-when="tweet" class="item item-text-wrap">
+      <div class="row">
+        <div class="col-xs-2">
+          <img ng-src="{{card.data.profile_img}}" class="profile-img" />
+        </div>
+        <div class="col-xs-10">
+          <div class="row">
+            <p>{{card.data.user}}</p>
+          </div>
+          <div class="row">
+            {{card.data.tweet}}
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div ng-switch-when="checkin" class="item item-image">
+      <img ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{card.location.latitude}},{{card.location.longitude}}&amp;zoom=17&amp;scale=2&amp;size=600x300&amp; maptype=roadmap&amp;markers={{card.location.latitude}},{{card.location.longitude}}&amp;key=AIzaSyCKi4vyRxY18xmARHs_ipOo1CXVHTd5H9I" />
+    </div>
+  
+    <div ng-switch-when="instagram" class="item item-image">
+      <img ng-src="{{card.data.img_url}}" />
+    </div>
+  
+    <div class="item card-info">
+      <div class="row">
+        <div class="col">{{card.locationName}}</div>
+        <div class="col">{{card.createdAt | date:'short'}}</div>
+      </div>
+    </div>
+  
+  </div>
+</div>

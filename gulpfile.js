@@ -33,6 +33,7 @@ gulp.task('sass', function(done) {
     }))
     .pipe(rename({ extname: '.min.css' }))
     .pipe(gulp.dest('./www/css/'))
+    .pipe(gulp.dest('./TripJournal/cloud/public/css/'))
     .on('end', done);
 });
 

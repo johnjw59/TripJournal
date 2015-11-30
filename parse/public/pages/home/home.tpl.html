@@ -1,4 +1,4 @@
-<ion-view>
+<ion-view hide-back-button="true">
   <ion-nav-title>
     <ion-tabs class="tabs-background-positive tabs-color-light">
       <ion-tab title="Cards" icon-on="ion-ios-albums" icon-off="ion-ios-albums-outline" class="tab-color-light" on-deselect="changeView()"></ion-tab>
@@ -6,18 +6,21 @@
     </ion-tabs>
   </ion-nav-title>
   <ion-nav-buttons side="right">
-    <button class="button button-clear" ng-click="shareTrip()">Share Trip</button>
+    <button class="button button-clear" href="">
+      Get TripJournal
+    </button>
   </ion-nav-buttons>
-
+  
   <div ng-show="tab == 'cards'">
-    <ion-content class="has-header">
-      <cardview cards="cards"></cardview>
+    <ion-content class="has-header" >
+      <cardview></cardview>
     </ion-content>
   </div>
 
   <div ng-show="tab == 'map'">
     <ion-content scroll="false" class="has-header">
-      <mapview markers="cards"></mapview>
+      <mapview></mapview>
     </ion-content>
   </div>
+
 </ion-view>
