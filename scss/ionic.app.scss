@@ -58,6 +58,8 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 #make-note, #tweet {
   height: 100%;
   width: 100%;
+  margin-top: 50px;
+  z-index: 2;
 }
 
 .button.button-full.note-submit {

@@ -174,6 +174,23 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces', 'ionic'])
     });
   };
 
+  $scope.postTwitterPhoto = function() {
+    var options = {
+      quality: 50,
+      encodingType: Camera.EncodingType.JPEG,
+      destinationType: Camera.DestinationType.DATA_URL,
+      correctOrientation: true,
+      saveToPhotoAlbum: false
+    };
+    console.log(options);
+    $cordovaCamera.getPicture(options)
+    .then(function(img) {
+      TwitterService.postPhoto(img);
+    }, function(error) {
+      console.error(error);
+    });
+  };
+
 
   // Check-in functionality
   $scope.checkin = function() {

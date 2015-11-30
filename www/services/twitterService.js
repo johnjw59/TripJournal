@@ -54,6 +54,14 @@ angular.module('TwitterService', [])
         }
       });
     },
+    postPhoto: function(media_data) {
+      var url = 'https://upload.twitter.com/1.1/media/upload.json'
+      $twitterApi.postRequest(url, {media_data: media_data}).then(function(res) {
+        console.log(res);
+      }, function(error) {
+        console.log(error);
+      })
+    },
     storeUserToken: storeUserToken,
     getStoredToken: getStoredToken,
   };
