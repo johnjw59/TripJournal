@@ -10,7 +10,7 @@ angular.module('service.cards', [])
       var defer = $q.defer();
       var query = new Parse.Query(ParseCard);
       query.equalTo('userId', userId).equalTo('tripId', tripId);
-      query.ascending("createdAt");
+      query.descending("createdAt");
       query.find({
         success: function(results) {
           // if there's no cards for this trip/user go to landing page
