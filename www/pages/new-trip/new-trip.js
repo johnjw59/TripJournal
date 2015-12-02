@@ -1,4 +1,4 @@
-angular.module('page.newTrip', [])
+angular.module('page.newTrip', ['ionic'])
 .controller("NewTripCtrl", function($scope, $ionicHistory, $timeout, $state, $ionicLoading, CardsService) {
   // Only want to be on this page if we don't have a trip currently set
   if (window.localStorage.getItem('trip_id') !== null) {

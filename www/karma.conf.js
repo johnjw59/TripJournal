@@ -23,7 +23,6 @@ module.exports = function(config) {
     'lib/angular-resource/angular-resource.js',
     'lib/ngCordova/dist/ng-cordova.min.js',
     'lib/ngCordova/dist/ng-cordova-mocks.min.js',
-    'lib/parse-sdk/lib/parse.min.js',
     'lib/ngmap/build/scripts/ng-map.min.js',
     'lib/angularjs-google-places/dist/angularjs-google-places.min.js',
     'lib/angularjs-slider/dist/rzslider.js',
@@ -102,5 +101,5 @@ module.exports = function(config) {
     // Concurrency level
     // how many browser should be started simultanous
     concurrency: Infinity
-  })
-}
+  });
+};
