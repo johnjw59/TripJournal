@@ -47,12 +47,12 @@ describe('NewTripCtrl', function() {
 
     it('should go home if a trip is set already', function() {
       window.localStorage.setItem('trip_id', '1234');
-      spyOn($state, 'go').and.callFake(function(arg) { 
-        expect(arg).toEqual('home');
-      });
+      spyOn($state, 'go');
 
       var $scope = $rootScope.$new();
       var controller = $controller('NewTripCtrl', { $scope: $scope });
+      
+      expect($state.go).toHaveBeenCalledWith('home');
     });
   });
 
