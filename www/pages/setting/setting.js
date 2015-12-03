@@ -22,7 +22,7 @@ angular.module('page.setting', [])
         var trip = new ParseTrip();
         trip.id = window.localStorage.getItem('trip_id');
         trip.set('end', new Date());
-        
+      
         trip.save(null, {
           success: function(ret) {
             window.localStorage.removeItem('trip_id');
@@ -61,15 +61,14 @@ angular.module('page.setting', [])
   };
 
 
-  $scope.showLogin = true;
-  $scope.isInstagramAuth = false;
+  $scope.twitterLogin = true;
 
   $ionicPlatform.ready(function() {
     if (TwitterService.isAuthenticated()) {
-      $scope.showLogin = false;
+      $scope.twitterLogin = false;
       console.log('is Authenticated');
     }
-    Parse.Cloud.run('isInstagramAuth', {}, {
+    /*Parse.Cloud.run('isInstagramAuth', {}, {
       success: function(response) {
         if (response) {
           $scope.isInstagramAuth = true;
@@ -78,19 +77,7 @@ angular.module('page.setting', [])
       error: function(error) {
         console.log(error);
       }
-    });
-  });
-
-  $scope.instagramUser = '';
-
-  Parse.Cloud.run('getInstagramData', {}, {
-    success: function(response) {
-      $scope.instagramUser = response.data.username;
-      $scope.$apply();
-    },
-    error: function(error) {
-      console.log(error);
-    }
+    });*/
   });
 
   $scope.authenticateTwitter = function() {
@@ -107,6 +94,31 @@ angular.module('page.setting', [])
     }
   };
 
+  $scope.logout = function() {
+    console.log('logout');
+    Parse.User.logOut();
+    var currentUser = Parse.User.current();
+    if (currentUser) {
+        $scope.user = currentUser;
+    } else {
+        $scope.user = 'no user';
+    }
+    console.log($scope.user);
+  };
+
+  /*$scope.isInstagramAuth = false;
+  $scope.instagramUser = '';
+
+  Parse.Cloud.run('getInstagramData', {}, {
+    success: function(response) {
+      $scope.instagramUser = response.data.username;
+      $scope.$apply();
+    },
+    error: function(error) {
+      console.log(error);
+    }
+  });
+
   $scope.authenticateInstagram = function() {
     if (Parse.User.current()) {
       var currentSession = Parse.Session.current()
@@ -119,18 +131,6 @@ angular.module('page.setting', [])
     } else {
       alert('You must be logged in!');
     }
-  };
-
-  $scope.logout = function() {
-    console.log('logout');
-    Parse.User.logOut();
-    var currentUser = Parse.User.current();
-    if (currentUser) {
-        $scope.user = currentUser;
-    } else {
-        $scope.user = 'no user';
-    }
-    console.log($scope.user);
   };
 
   $scope.getPhotos = function() {
@@ -164,7 +164,9 @@ angular.module('page.setting', [])
         console.log(error);
       }
     });
-  };
+  };*/
+
+
   
   // enable for debugging
   // $scope.logOut = function() {

@@ -23,34 +23,31 @@
     <div class="list">
       <div class="item item-button-right">
         Login to Twitter
-        <button ng-if="showLogin" class="button button-balanced" ng-click="authenticateTwitter()">Login</button>
-        <button ng-if="!showLogin" class="button button-stable" disabled>Logged in</button>
+        <button ng-if="twitterLogin" class="button button-balanced" ng-click="authenticateTwitter()">Login</button>
+        <button ng-if="!twitterLogin" class="button button-stable" disabled>Logged in</button>
       </div>
+    </div>
 
+    <!--<div class="list">
       <div class="item item-button-right">
-        Login to Instagram
-        <button ng-if="showLogin" class="button button-balanced">Login</button>
-        <button ng-if="!showLogin" class="button button-stable" disabled>Logged in</button>
+        Instagram Authentication
+        <button class="button button-balanced" ng-click="authenticateInstagram()">
+          Login
+        </button>
       </div>
-    </div>
-    <div class="item item-button-right">
-      Instagram Authentication
-      <button class="button button-balanced" ng-click="authenticateInstagram()">
-        Login
-      </button>
-    </div>
-    <p>Instagram user: {{instagramUser}}</p>
-    <div class="item item-button-right">
-      Get Instagram Photos
-      <button class="button button-balanced" ng-click="getPhotos()">
-        Get Photos
-      </button>
-    </div>
-    <div class="item item-button-right">
-      Log out
-      <button class="button button-balanced" ng-click="logout()">
+      <p>Instagram user: {{instagramUser}}</p>
+      <div class="item item-button-right">
+        Get Instagram Photos
+        <button class="button button-balanced" ng-click="getPhotos()">
+          Get Photos
+        </button>
+      </div>
+      <div class="item item-button-right">
         Log out
-      </button>
-    </div>
+        <button class="button button-balanced" ng-click="logout()">
+          Log out
+        </button>
+      </div>
+    </div>-->
   </ion-content>
 </ion-view>
