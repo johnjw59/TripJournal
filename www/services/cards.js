@@ -1,4 +1,4 @@
-angular.module('service.cards', [])
+angular.module('service.cards', ['ionic'])
 .service('CardsService', function($rootScope, $q, $state) {
   var ParseCard = Parse.Object.extend("Card");
 
