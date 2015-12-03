@@ -14,11 +14,23 @@ var Parse = {
   },
   Object: {
     extend: function() {
-      return {
-        set: function() {
+      return function() {
+        this.set = function() {
           return true;
-        }
+        };
+        this.save = function(arg, callbacks) {
+          callbacks.success({id: '1234'});
+        };
       };
     }
+  },
+  Query: function() {
+    return {
+      equalTo: function() { return this; },
+      descending: function() { return this; },
+      find: function(callbacks) {
+        callbacks.success([{attributes: {id: '1234'}}]);
+      }
+    };
   }
 };

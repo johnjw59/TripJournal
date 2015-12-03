@@ -1,6 +1,11 @@
 angular.module('page.newTrip', ['ionic'])
 .controller("NewTripCtrl", function($scope, $ionicHistory, $timeout, $state, $ionicLoading, CardsService) {
-  // Only want to be on this page if we don't have a trip currently set
+  var currentUser = Parse.User.current();
+
+  // Only want to be on this page if we have a user but no trip
+  if (!currentUser) {
+    $state.go('login');
+  }
   if (window.localStorage.getItem('trip_id') !== null) {
     $state.go('home');
   }
@@ -18,14 +23,7 @@ angular.module('page.newTrip', ['ionic'])
       template: 'Setting up your trip...'
     });
 
-    var currentUser = Parse.User.current();
-    var userId;
-
-    if (currentUser) {
-      userId = currentUser.getUsername();
-    } else {
-      $state.go('login');
-    }
+    var userId = currentUser.getUsername();
 
     var ParseTrip = Parse.Object.extend("Trip");
 
