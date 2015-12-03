@@ -8,11 +8,10 @@ angular.module('page.setting', [])
   });
 
   $scope.endTrip = function() {
-    var confirmPopup = $ionicPopup.confirm({
+    $ionicPopup.confirm({
       title: 'End Current Trip?',
       template: 'Are you sure you want to end this trip? You will no longer be able to post new cards to it.'
-    });
-    confirmPopup.then(function(res) {
+    }).then(function(res) {
       if(res) {
         $ionicLoading.show({
           template: 'Ending your trip...'
