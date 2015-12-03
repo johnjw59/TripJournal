@@ -28,6 +28,7 @@ var Parse = {
     return {
       equalTo: function() { return this; },
       descending: function() { return this; },
+      exists: function() {return this; },
       find: function(callbacks) {
         callbacks.success([{attributes: {id: '1234'}}]);
       }

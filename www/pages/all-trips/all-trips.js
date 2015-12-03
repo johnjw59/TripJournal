@@ -1,4 +1,4 @@
-angular.module('page.allTrips', [])
+angular.module('page.allTrips', ['ionic'])
 .controller("AllTripsCtrl", function($scope, $state, $timeout, $ionicLoading) {
   $scope.$state = $state;
   $scope.trips = [];

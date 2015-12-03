@@ -18,7 +18,7 @@ describe('NewTripCtrl', function() {
 
   afterEach(inject(function() {
     window.localStorage.clear();
-  }))
+  }));
 
   describe('Entering View', function() {
     it('should clear ionicHistory', function() {
