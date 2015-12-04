@@ -117,12 +117,13 @@ angular.module('page.setting', [])
       console.log(error);
     }
   });
+  */
 
   $scope.authenticateInstagram = function() {
     if (Parse.User.current()) {
       var currentSession = Parse.Session.current()
       .then(function(session) {
-        var ref = window.open('https://tripjournalubc.parseapp.com/authorize?sessionId=' + session.id, '_system', 'location=yes');
+        var ref = window.open('https://tripjournalapp.parseapp.com/authorize?sessionId=' + session.id, '_system', 'location=yes');
         ref.addEventListener('loaderror', function(error) {
           console.log(error);
         });
@@ -131,6 +132,8 @@ angular.module('page.setting', [])
       alert('You must be logged in!');
     }
   };
+
+  /*
 
   $scope.getPhotos = function() {
     Parse.Cloud.run('getInstagramPhotos', {}, {
