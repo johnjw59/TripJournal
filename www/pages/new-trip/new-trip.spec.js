@@ -29,6 +29,7 @@ describe('NewTripCtrl', function() {
       spyOn($ionicHistory, 'clearHistory');
       spyOn($ionicHistory, 'clearCache');
       $rootScope.$broadcast('$ionicView.enter');
+      
       expect($ionicHistory.clearHistory).toHaveBeenCalled();
       expect($ionicHistory.clearCache).toHaveBeenCalled();
     });

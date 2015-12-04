@@ -7,7 +7,7 @@ plugins/
 www/css
 www/lib
 temp/
-resources/
+resources/*
 *.log
 *.swp
 .io-config.json
@@ -19,3 +19,6 @@ parse/public/lib
 
 *.DS_Store
 Thumbs.db
+
+!resources/splash.*
+!resources/icon.*
