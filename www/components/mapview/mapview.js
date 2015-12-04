@@ -1,17 +1,20 @@
-angular.module('mapview', ['ngMap', 'rzModule']) 
-.directive('mapview', function(GeolocationService, $rootScope, $timeout, CardsService) {
+var mapview = angular.module('mapview', ['ngMap', 'rzModule']);
+
+var MapViewController = function($scope, $state, $stateParams) {
+  $scope.detail = function(event, card) {
+    $state.go('detail',{card: card});
+  };
+  $scope.tripId = $stateParams.id;
+};
+
+mapview.directive('mapview', function(GeolocationService, $rootScope, $timeout, CardsService) {
   return {
     scope: {
       markers: '=?markers',
       cards: '='
     },
     templateUrl: 'components/mapview/mapview.tpl.html',
-    controller: function($scope, $state, $stateParams) {
-      $scope.detail = function(event, card) {
-        $state.go('detail',{card: card});
-      };
-      $scope.tripId = $stateParams.id;
-    },
+    controller: MapViewController,
     link: function($scope) {
       var MS_PER_DAY = 1000 * 60 * 60 * 24;
 

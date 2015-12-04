@@ -7,8 +7,8 @@ describe('TripCtrl', function() {
 
   var $controller;
   var $rootScope;
-  var CardsService
-  var $stateParams
+  var CardsService;
+  var $stateParams;
 
   beforeEach(inject(function($injector) {
     $controller = $injector.get('$controller');
