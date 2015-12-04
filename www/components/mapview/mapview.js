@@ -1,10 +1,18 @@
 var mapview = angular.module('mapview', ['ngMap', 'rzModule']);
 
 var MapViewController = function($scope, $state, $stateParams) {
+  $scope.tripId = $stateParams.id;
+
   $scope.detail = function(event, card) {
     $state.go('detail',{card: card});
   };
-  $scope.tripId = $stateParams.id;
+
+  $scope.buildPath = function(markers) {
+    var path = markers.map(function(marker) {
+      return [marker.location.latitude, marker.location.longitude];
+    });
+    return path;
+  };
 };
 
 mapview.directive('mapview', function(GeolocationService, $rootScope, $timeout, CardsService) {
@@ -88,9 +96,7 @@ mapview.directive('mapview', function(GeolocationService, $rootScope, $timeout, 
       $scope.$watch('markers', function(newVal, oldVal) {
         // console.log('markers watched', newVal);
         if (typeof newVal != 'undefined') {
-          $scope.path = $scope.markers.map(function(marker) {
-            return [marker.location.latitude, marker.location.longitude];
-          });
+          $scope.path = $scope.buildPath($scope.markers);
 
           // If center hasn't been set yet, set it to the first marker
           if (center === null) {

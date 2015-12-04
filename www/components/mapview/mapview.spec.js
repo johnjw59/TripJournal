@@ -56,4 +56,32 @@ describe('mapview', function() {
       $scope.detail(e,card);
     });
   });
+
+  describe('$scope.buildPath', function() {
+  	it('builds a path from markers', function() {
+  		var markers = [
+  			{location: {latitude: 1,longitude: 1}, other: 'other'},
+  			{location: {latitude: 2,longitude: 2}, other: 'other'},
+  			{location: {latitude: 3,longitude: 3}, other: 'other'},
+  			{location: {latitude: 4,longitude: 4}, other: 'other'}
+  		];
+
+  		var expectedPath = [
+  			[1,1],
+  			[2,2],
+  			[3,3],
+  			[4,4]
+  		];
+
+  		var $scope = $rootScope.$new();
+      	var controller = $controller(MapViewController, { 
+        	$scope: $scope, 
+        	$stateParams: $stateParams 
+      	});
+      	$scope.$apply();
+
+  		$scope.path = $scope.buildPath(markers);
+  		expect($scope.path).toEqual(expectedPath);
+  	});
+  });
 });
