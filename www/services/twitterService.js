@@ -43,6 +43,7 @@ angular.module('TwitterService', [])
     postTweet: function(message, callback) {
       $twitterApi.postStatusUpdate(message).then(function(result) {
         callback(result);
+        console.log($http.defaults.headers.post);
       }, function(error) {
         if (error === 401) {
           $cordovaOauth.twitter(clientId, clientSecret).then(function(result) {
@@ -55,12 +56,19 @@ angular.module('TwitterService', [])
       });
     },
     postPhoto: function(media_data) {
+      // $http.defaults.headers.post = {
+      //   'Content-Type': 'application/octet-stream',
+      //   'Content-Transfer-Encoding': 'base64'
+      // };
       var url = 'https://upload.twitter.com/1.1/media/upload.json'
-      $twitterApi.postRequest(url, {media_data: media_data}).then(function(res) {
+      $twitterApi.postPhoto(media_data).then(function(res) {
+        console.log($http.defaults.headers.post);
         console.log(res);
       }, function(error) {
+        console.log($http.defaults.headers.post);
         console.log(error);
-      })
+      });
+
     },
     storeUserToken: storeUserToken,
     getStoredToken: getStoredToken,

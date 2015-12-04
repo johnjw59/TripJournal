@@ -185,10 +185,34 @@ angular.module('page.home', ['tripCards', 'mapview', 'ngGPlaces', 'ionic'])
     console.log(options);
     $cordovaCamera.getPicture(options)
     .then(function(img) {
-      TwitterService.postPhoto(img);
+      var blob = dataURItoBlob(img);
+      var fd = new FormData();
+      fd.append('media', blob, 'media');
+      console.log(fd);
+      TwitterService.postPhoto(fd);
     }, function(error) {
       console.error(error);
     });
+
+
+    function dataURItoBlob(dataURI) {
+      var binary = atob(dataURI);
+      var array = [];
+      for(var i = 0; i < binary.length; i++) {
+          array.push(binary.charCodeAt(i));
+      }
+      return new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
+    }
+
+
+    // From there, appending the data to a form such that it will be uploaded as a file is easy:
+
+    // var dataURL = canvas.toDataURL('image/jpeg', 0.5);
+    // var blob = dataURItoBlob(dataURL);
+    // var fd = new FormData(document.forms[0]);
+    // fd.append("canvasImage", blob);
+
+
   };
 
 
